@@ -279,6 +279,7 @@ class Pooling:
         # dmaxの[]内:
         # 0次元: [0, 1, 2, 3, ...]
         # 1次元: [arg_max[0], arg_max[1], arg_max[2], ...]
+        # 最大値だけ通す
         # flattenの意味は???
         dmax[np.arange(self.arg_max.size), self.arg_max.flatten()] = dout.flatten()
 

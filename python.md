@@ -89,7 +89,7 @@ array([[1, 2, 5, 6],
        [3, 4, 7, 8]])
 ```
 
-### PyCharm開始スクリプト ###
+## PyCharm開始スクリプト ##
 
 ```python
 import sys;import os
@@ -100,3 +100,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 print("now_dir ->" + os.getcwd())
 ```
+
+## from PIL import IMAGE でエラー ##
+
+conda-forgeのpillowを使う
