@@ -88,3 +88,15 @@ Out[25]:
 array([[1, 2, 5, 6],
        [3, 4, 7, 8]])
 ```
+
+### PyCharm開始スクリプト ###
+
+```python
+import sys;import os
+print('Python %s on %s' % (sys.version, sys.platform))
+sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+print("now_dir ->" + os.getcwd())
+```
