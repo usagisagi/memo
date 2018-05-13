@@ -1,37 +1,44 @@
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import convnet
 import torchvisions
 
-net = convnet.Net()
-criterion = nn.CrossEntropyLoss()
-# optimizerにはnetのparamのポインタを渡す
-optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-for epoch in range(2):
-    running_loss = 0.0
+def main():
+    net = convnet.Net()
+    criterion = nn.CrossEntropyLoss()
+    # optimizerにはnetのparamのポインタを渡す
+    optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-    # enemurate start 0
-    for i, data in enumerate(torchvisions.trainloader, 0):
-        inputs, labels = data
+    for epoch in range(2):
+        running_loss = 0.0
 
-        optimizer.zero_grad()
-        outputs = net(inputs)
-        loss = criterion(outputs)
-        loss.backward()
-        optimizer.step()    # update
+        # enemurate start 0
+        for i, data in enumerate(torchvisions.trainloader, 0):
+            inputs, labels = data
 
-        # このrunning_lossはLossの表示のみに用い、他に何も使わない
-        running_loss += loss.item()
+            optimizer.zero_grad()
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()  # update
 
-        if i % 2000 == 1999:
-            print(f"[{epoch+1}, {i+1}] loss; {running_loss / 2000}")
-            running_loss = 0.0
+            # このrunning_lossはLossの表示のみに用い、他に何も使わない
+            running_loss += loss.item()
 
-print("finished training")
+            if i % 2000 == 1999:
+                print(f"[{epoch+1}, {i+1}] loss; {running_loss / 2000}")
+                running_loss = 0.0
 
-import pickle
-with open("net.pkl", "wb") as f:
-    pickle.dump(net, f)
+    print("finished training")
 
+    import pickle
+
+    with open("net.pkl", "wb") as f:
+        pickle.dump(net, f)
+
+
+if __name__ == '__main__':
+    main()

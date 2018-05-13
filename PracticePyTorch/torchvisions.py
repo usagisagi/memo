@@ -21,13 +21,13 @@ trainset: torchvision.datasets.cifar.CIFAR10 = torchvision.datasets.CIFAR10(
 # and provides single- or multi-process iterators over the dataset.
 # https://pytorch.org/docs/stable/data.html#torch.utils.data.DataLoader
 trainloader: torch.utils.data.dataloader.DataLoader = torch.utils.data.DataLoader(
-    trainset, batch_size=4, shuffle=True, num_workers=2)
+    trainset, batch_size=4, shuffle=True, num_workers=0)
 
 testset: torchvision.datasets.cifar.CIFAR10 = torchvision.datasets.CIFAR10(
     root='./data', train=False, download=True, transform=transform)
 
 testloader: torch.utils.data.dataloader.DataLoader = torch.utils.data.DataLoader(
-    testset, batch_size=4, shuffle=True, num_workers=2)
+    testset, batch_size=4, shuffle=True, num_workers=0)
 
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
@@ -47,3 +47,6 @@ images, labels = dataiter.next()
 imshow(torchvision.utils.make_grid(images))
 
 print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
+
+if __name__ == '__main__':
+    pass
