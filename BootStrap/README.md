@@ -75,7 +75,7 @@ function reverse_display(form_id1, form_id2)
 
     return false;
 }
-</sceript>
+</script>
 ```
 
 python側
@@ -101,7 +101,7 @@ def generate_reverse_link(div_id: str, div_id_all: str, before_text: str, after_
             {before_text}
         </a>
     </div>
-    <div id="{dvi_id_all}" class="" style="display: none;">
+    <div id="{div_id_all}" class="" style="display: none;">
         <a href='javascript:void(0)' onclick='reverse_display(\"{div_id}\",\"{div_id_all}\")'>"
             {after_text)}
         </a>
