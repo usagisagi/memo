@@ -6,6 +6,23 @@
 os.path.abspath(os.pardir + "\\data\\raw\\users.tsv")
 ```
 
+## シングルトン ##
+
+```python
+class SimpleSingleton:
+    _instance = None
+    _lock = threading.Lock()
+
+    # initの前に始めの1回呼ばれる
+    def __new__(cls):
+        with cls._lock:
+            # 保持しているインスタンスが無かったら作成
+            if cls._instance is None:
+                cls._instance = Instance
+
+        return cls._instance
+```
+
 ## 日付 ##
 
 ```python

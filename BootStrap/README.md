@@ -1,5 +1,7 @@
 # Bootstrap #
 
+まずはじめにjQueryをjsフォルダ内にいれる
+
 ## リンク ##
 
 使い方が詳しい
@@ -97,17 +99,139 @@ def generate_reverse_link(div_id: str, div_id_all: str, before_text: str, after_
     return \
     f"""
     <div id="{div_id}" class="">
-        <a href='javascript:void(0)' onclick='reverse_display(\"{div_id}\",\"{div_id_all}\")'>
+        <a href='javascript:void(0)' onclick='reverse_display("{div_id}","{div_id_all}")'>
             {before_text}
         </a>
     </div>
     <div id="{div_id_all}" class="" style="display: none;">
-        <a href='javascript:void(0)' onclick='reverse_display(\"{div_id}\",\"{div_id_all}\")'>"
+        <a href='javascript:void(0)' onclick='reverse_display("{div_id}","{div_id_all}")'>"
             {after_text)}
         </a>
     </div>
     """
 ```
 
+## クリックでイベントを起動して -> post値を変更
 
-1. jQueryをjsフォルダ内にいれる
+
+```js
+$(function(){
+    $(".jump").on('click',function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        location.href = 'http://hoge' + $(this).attr('href');
+        return false;
+    });
+});
+```
+
+```html
+<a href="1" class="jump">ページ１</a>
+<a href="2" class="jump">ページ２</a>
+```
+
+## Ajaxの非同期読み込み ##
+
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ajaxを用いたプルダウンサンプル</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+<!--
+function getTableData() {
+    //プルダウンで選択されたValueを取得
+    var selectVal = $("#team_id").val();
+    //getJSONで、別途用意している処理用PHPに必要な値を投げて受け取ります
+    $.getJSON("http://www.alt-plus.jp/sandbox/hachi/20150629_ajaxsample/getdata.php"
+            , {"team_id": selectVal }            //team_idに取得したValue値を投げます
+            , function (data, status) {            
+                var playerList = $("#player_id");    //連動するプルダウンのID
+                playerList.children().remove();    //子要素は毎回全て削除します(初期化)
+                for (i in data) {
+                    var row = data[i];
+                    //取得したデータをAppendで1行ずつ追加
+                    playerList.append(new Option(row['player_name'], row['player_id']));
+                }
+             }
+             /*****エラーハンドリング用
+             ).success(function(json) {
+                console.log("成功");
+            }).error(function(jqXHR, textStatus, errorThrown) {
+                console.log("エラー：" + textStatus);
+                console.log("テキスト：" + jqXHR.responseText);
+            }).complete(function() {
+                console.log("完了");
+            }
+*/
+     );
+}
+</script>
+</head>
+<body>
+<select id="team_id" name="team_id" onchange="getTableData()">
+    <option value="">--チームを選択してください--</option>
+    <option value="1">読売ジャイアンツ</option>
+    <option value="2">中日ドラゴンズ</option>
+</select>
+<select id="player_id" name="player_id">
+    <option value="">--選手を選択してください--</option>
+</select>
+</body>
+</html>
+```
+
+getdata.php
+
+```php
+//クライアントから送信されるチームIDを取得します
+$team_id = $_GET['team_id'];
+
+//クライアントに返す検索結果はこいつに入れます
+$response = array();
+
+//DBからチームIDに合致する選手名を取得します
+if (strlen($team_id) != 0) {
+    $link = mysql_connect('DBの場所', 'DBユーザ', 'DBパスワード');
+    mysql_select_db('使用するDB名');
+    mysql_query("SET NAMES utf8", $link);
+    $sql  = "SELECT player_id";
+    $sql .= "     , player_name";
+    $sql .= "  FROM テーブル名";
+    $sql .= sprintf(" WHERE team_id = '%s'", mysql_real_escape_string($team_id));
+    $sql .= " ORDER BY player_id ASC";
+    $result = mysql_query($sql, $link);
+    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        array_push($response, $row);
+    }
+}
+//JSON形式で値を返します
+echo(json_encode($response));
+
+//クライアントから送信されるチームIDを取得します
+$team_id = $_GET['team_id'];
+
+//クライアントに返す検索結果はこいつに入れます
+$response = array();
+
+//DBからチームIDに合致する選手名を取得します
+if (strlen($team_id) != 0) {
+    $link = mysql_connect('DBの場所', 'DBユーザ', 'DBパスワード');
+    mysql_select_db('使用するDB名');
+    mysql_query("SET NAMES utf8", $link);
+    $sql  = "SELECT player_id";
+    $sql .= "     , player_name";
+    $sql .= "  FROM テーブル名";
+    $sql .= sprintf(" WHERE team_id = '%s'", mysql_real_escape_string($team_id));
+    $sql .= " ORDER BY player_id ASC";
+    $result = mysql_query($sql, $link);
+    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        array_push($response, $row);
+    }
+}
+//JSON形式で値を返します
+echo(json_encode($response));
+```
