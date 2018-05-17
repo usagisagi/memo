@@ -31,6 +31,7 @@ form_component
 <option value="Okinawa">沖縄</option>
 </select>   
 ```
+
 ### select時にsubmit ###
 
 script
@@ -132,6 +133,8 @@ $(function(){
 
 ## Ajaxの非同期読み込み ##
 
+> http://www.alt-plus.jp/archives/360
+> 
 ```html
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ja">
@@ -148,7 +151,7 @@ function getTableData() {
     //getJSONで、別途用意している処理用PHPに必要な値を投げて受け取ります
     $.getJSON("http://www.alt-plus.jp/sandbox/hachi/20150629_ajaxsample/getdata.php"
             , {"team_id": selectVal }            //team_idに取得したValue値を投げます
-            , function (data, status) {            
+            , function (data, status) {
                 var playerList = $("#player_id");    //連動するプルダウンのID
                 playerList.children().remove();    //子要素は毎回全て削除します(初期化)
                 for (i in data) {
@@ -184,6 +187,14 @@ function getTableData() {
 </html>
 ```
 
+### 行の追加 ###
+
+```JS
+addRow = function() {
+    $('#nameTable tr:last').after('<tr><td>山下</td><td>28</td></tr>');
+}
+```
+
 getdata.php
 
 ```php
@@ -210,28 +221,5 @@ if (strlen($team_id) != 0) {
 }
 //JSON形式で値を返します
 echo(json_encode($response));
-
-//クライアントから送信されるチームIDを取得します
-$team_id = $_GET['team_id'];
-
-//クライアントに返す検索結果はこいつに入れます
-$response = array();
-
-//DBからチームIDに合致する選手名を取得します
-if (strlen($team_id) != 0) {
-    $link = mysql_connect('DBの場所', 'DBユーザ', 'DBパスワード');
-    mysql_select_db('使用するDB名');
-    mysql_query("SET NAMES utf8", $link);
-    $sql  = "SELECT player_id";
-    $sql .= "     , player_name";
-    $sql .= "  FROM テーブル名";
-    $sql .= sprintf(" WHERE team_id = '%s'", mysql_real_escape_string($team_id));
-    $sql .= " ORDER BY player_id ASC";
-    $result = mysql_query($sql, $link);
-    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-        array_push($response, $row);
-    }
-}
-//JSON形式で値を返します
-echo(json_encode($response));
 ```
+

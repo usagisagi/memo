@@ -15,3 +15,14 @@ Close #1
 ```vb
 Application.CurrentProject.Path
 ```
+
+## テキストファイル読み込み ##
+
+```vb
+Open "C:\Sample\Data.txt" For Input As #1
+    Do Until EOF(1)
+        Line Input #1, buf
+        セル = buf
+    Loop
+Close #1
+```
