@@ -223,3 +223,11 @@ if (strlen($team_id) != 0) {
 echo(json_encode($response));
 ```
 
+## DataTables ##
+
+### 日付等の並び替え ###
+
+`<td>`タグに`data-sorting`属性を仕込む
+
+> https://datatables.net/examples/advanced_init/html5-data-attributes.html
+
