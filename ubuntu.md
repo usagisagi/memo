@@ -47,6 +47,17 @@ sudo apt-get install easystroke
 
 1. cudaのインストール
 
-```bash
+  ```bash
   sudo apt install nvidia-cuda-toolkit
   ```
+1. cuDNNのインストール
+
+  > https://qiita.com/yukoba/items/4733e8602fa4acabcc35
+  公開鍵は別途問い合わせる
+
+  ```
+  echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" | sudo tee /etc/apt/sources.list.d/nvidia-ml.list
+  sudo apt update
+  sudo apt install libcudnn7-dev
+  ```
+  
