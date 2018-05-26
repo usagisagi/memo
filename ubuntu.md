@@ -13,6 +13,7 @@ sudo apt-get install easystroke
 ## Ubuntu 18.04 -> nvidia driver -> CUDA -> cuDNN ##
 
 1. nouveau 無効化
+
   ```bash
   sudo vi /etc/modprobe.d/blacklist-nouveau.conf
   ```
@@ -45,6 +46,7 @@ sudo apt-get install easystroke
   ```
 
 1. cudaのインストール
-  ```bash
+
+```bash
   sudo apt install nvidia-cuda-toolkit
   ```
