@@ -13,38 +13,38 @@ sudo apt-get install easystroke
 ## Ubuntu 18.04 -> nvidia driver -> CUDA -> cuDNN ##
 
 1. nouveau 無効化
-```bash
-sudo vi /etc/modprobe.d/blacklist-nouveau.conf
-```
-viで
+  ```bash
+  sudo vi /etc/modprobe.d/blacklist-nouveau.conf
+  ```
+  viで
 
-```
-blacklist nouveau
-optitions nouveau modeset=0
-```
+  ```
+  blacklist nouveau
+  optitions nouveau modeset=0
+  ```
 
-読み込んでReboot
+  読み込んでReboot
 
-```bash
-sudo u@date-initranfs -u
-reboot
-```
+  ```bash
+  sudo u@date-initranfs -u
+  reboot
+  ```
 
 1. driverのインストール
 
-```bash 
-sudo ubuntu-drivers autoinstall
-sudo reboot
-```
-secure bootかかるので、Enroll MOK->でpassを入力して入ること
+  ```bash 
+  sudo ubuntu-drivers autoinstall
+  sudo reboot
+  ```
+  secure bootかかるので、Enroll MOK->でpassを入力して入ること
 
-再起動後、以下のコマンドで確認
+  再起動後、以下のコマンドで確認
 
-```bash
-nbidia-smi
-```
+  ```bash
+  nbidia-smi
+  ```
 
 1. cudaのインストール
-```bash
-sudo apt install nvidia-cuda-toolkit
-```
+  ```bash
+  sudo apt install nvidia-cuda-toolkit
+  ```
