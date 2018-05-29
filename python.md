@@ -121,3 +121,10 @@ print("now_dir ->" + os.getcwd())
 ## from PIL import IMAGE でエラー ##
 
 conda-forgeのpillowを使う
+
+
+## 1日ごとのtimestampを作成する ##
+
+```python
+datelist = [fromday + datetime.timedelta(days=n) for n in range((today - fromday).days)]
+```
