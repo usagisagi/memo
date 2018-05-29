@@ -128,3 +128,11 @@ conda-forgeのpillowを使う
 ```python
 datelist = [fromday + datetime.timedelta(days=n) for n in range((today - fromday).days)]
 ```
+
+## 文字列で"\u0000"とか来た時の対処法 ##
+
+\\\\uでsplit => int(x,16)で変換 => chrで文字 => joinで接続
+
+```python
+''.join([chr(int(x, 16)) for x in tar.split("\\u")[1::]])
+```
