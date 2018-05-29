@@ -227,7 +227,95 @@ echo(json_encode($response));
 
 ### 日付等の並び替え ###
 
-`<td>`タグに`data-sorting`属性を仕込む
+`<td>`タグに`data-order`属性を仕込んで並び替えをj指示するだけ(らくちーん)
+`<thead>`には仕込みは不要
+
+```html
+<tr>
+    <td data-search="Airi Satou">A. Satou</td>
+    <td>Accountant</td>
+    <td>Tokyo</td>
+    <td>33</td>
+    <td data-order="1227830400">Fri 28th Nov 08</td>
+    <td data-order="162700">$162,700/y</td>
+</tr>
+```
 
 > https://datatables.net/examples/advanced_init/html5-data-attributes.html
+
+### DataTables絡み ###
+
+基本の使い方
+
+> https://qiita.com/nissuk/items/7ac59af5de427c0585c5
+
+Ajax絡み
+
+> https://datatables.net/examples/ajax/orthogonal-data.html
+
+#### 並び替え ####
+
+以下の様にする
+
+```js
+$(document).ready(function() {
+    $('#example').DataTable( {
+        ajax: "data/orthogonal.txt",
+        columns: [
+            { data: "name" },
+            { data: "position" },
+            { data: "office" },
+            { data: "extn" },
+            { data: {
+                _:    "start_date.display",
+                sort: "start_date.timestamp"
+            } },
+            { data: "salary" }
+        ]
+    } );
+} );
+```
+
+```html
+<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+    </table>
+```
+
+```json
+{
+  "data": [
+    {
+      "name": "Tiger Nixon",
+      "position": "System Architect",
+      "salary": "$320,800",
+      "start_date": {
+        "display": "Mon 25th Apr 11",
+        "timestamp": "1303689600"
+      },
+      "office": "Edinburgh",
+      "extn": "5421"
+    },
+}
+```
+
 

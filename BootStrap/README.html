@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///c%3A/Users/h-ito/AppData/Roaming/Code/User/github_style.css" type="text/css">
+</head>
+<body>
+<h1 id="bootstrap">Bootstrap</h1>
+<p>まずはじめにjQueryをjsフォルダ内にいれる</p>
+<h2 id="%E3%83%AA%E3%83%B3%E3%82%AF">リンク</h2>
+<p>使い方が詳しい</p>
+<blockquote>
+<p>https://www.tuyano.com/</p>
+</blockquote>
+<p>日本語のテーマ</p>
+<blockquote>
+<p>http://honokak.osaka/</p>
+</blockquote>
+<h2 id="select2">Select2</h2>
+<h3 id="usage">Usage</h3>
+<p>header</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./js/select2.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+<p>form_component</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"basic-single form-control"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"myform"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Hokaido"</span>&gt;</span>北海道<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Tokyou"</span>&gt;</span>東京<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Osaka"</span>&gt;</span>大阪<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Fukuoka"</span>&gt;</span>福岡<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Okinawa"</span>&gt;</span>沖縄<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>   
+</div></code></pre>
+<h3 id="select%E6%99%82%E3%81%ABsubmit">select時にsubmit</h3>
+<p>script</p>
+<pre class="hljs"><code><div>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+        $(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-comment">//select2化</span>
+            $(<span class="hljs-string">'.basic-single'</span>).select2();
+            $(<span class="hljs-string">'.basic-single'</span>).change(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+                <span class="hljs-built_in">document</span>.myform.submit();
+            }
+            )
+        });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+<p>Form</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"#"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span>, <span class="hljs-attr">name</span>=<span class="hljs-string">"myform"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"basic-single form-control"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"myform"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Hokaido"</span>&gt;</span>北海道<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Tokyou"</span>&gt;</span>東京<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Osaka"</span>&gt;</span>大阪<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Fukuoka"</span>&gt;</span>福岡<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Okinawa"</span>&gt;</span>沖縄<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</div></code></pre>
+<h2 id="%E8%A1%A8%E7%A4%BA%E3%81%A8%E9%9D%9E%E8%A1%A8%E7%A4%BA%E3%82%92%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88%E3%82%8B">表示と非表示を切り替える</h2>
+<p>script</p>
+<pre class="hljs"><code><div>&lt;script language=<span class="hljs-string">"JavaScript"</span>&gt;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse_display</span>(<span class="hljs-params">form_id1, form_id2</span>)
+</span>{
+    <span class="hljs-comment">// 表示を反転させる</span>
+    <span class="hljs-keyword">var</span> obj1 = <span class="hljs-built_in">document</span>.getElementById(form_id1).style;
+    obj1.display = (obj1.display == <span class="hljs-string">'none'</span>) ? <span class="hljs-string">'block'</span> : <span class="hljs-string">'none'</span>;
+
+    <span class="hljs-keyword">var</span> obj2 = <span class="hljs-built_in">document</span>.getElementById(form_id2).style;
+    obj2.display = (obj2.display == <span class="hljs-string">'none'</span>) ? <span class="hljs-string">'block'</span> : <span class="hljs-string">'none'</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+&lt;<span class="hljs-regexp">/script&gt;
+</span></div></code></pre>
+<p>python側</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generate_reverse_link</span><span class="hljs-params">(div_id: str, div_id_all: str, before_text: str, after_text: str)</span>:</span>
+    <span class="hljs-string">"""
+    折り畳みボタンのリンクを作成する
+
+    :param div_id:
+        折り畳み前のテキストを示すdivのid
+    :param div_id_all:
+        折り畳み後のテキストを示すdivのid
+    :param before_text:
+    :param after_text:
+    :return:
+        htmlコード
+    """</span>
+    <span class="hljs-keyword">return</span> \
+    <span class="hljs-string">f"""
+    &lt;div id="<span class="hljs-subst">{div_id}</span>" class=""&gt;
+        &lt;a href='javascript:void(0)' onclick='reverse_display("<span class="hljs-subst">{div_id}</span>","<span class="hljs-subst">{div_id_all}</span>")'&gt;
+            <span class="hljs-subst">{before_text}</span>
+        &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div id="<span class="hljs-subst">{div_id_all}</span>" class="" style="display: none;"&gt;
+        &lt;a href='javascript:void(0)' onclick='reverse_display("<span class="hljs-subst">{div_id}</span>","<span class="hljs-subst">{div_id_all}</span>")'&gt;"
+            <span class="hljs-subst">{after_text)}</span>
+        &lt;/a&gt;
+    &lt;/div&gt;
+    """</span>
+</div></code></pre>
+<h2 id="%E3%82%AF%E3%83%AA%E3%83%83%E3%82%AF%E3%81%A7%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%97%E3%81%A6---post%E5%80%A4%E3%82%92%E5%A4%89%E6%9B%B4">クリックでイベントを起動して -&gt; post値を変更</h2>
+<pre class="hljs"><code><div>$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    $(<span class="hljs-string">".jump"</span>).on(<span class="hljs-string">'click'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>)</span>{
+        event.preventDefault();
+        event.stopPropagation();
+        location.href = <span class="hljs-string">'http://hoge'</span> + $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'href'</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    });
+});
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"1"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"jump"</span>&gt;</span>ページ１<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"2"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"jump"</span>&gt;</span>ページ２<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</div></code></pre>
+<h2 id="ajax%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF">Ajaxの非同期読み込み</h2>
+<blockquote>
+<p>http://www.alt-plus.jp/archives/360</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ja"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"Content-Type"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"text/html; charset=UTF-8"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Ajaxを用いたプルダウンサンプル<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+&lt;!--
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getTableData</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">//プルダウンで選択されたValueを取得</span>
+    <span class="hljs-keyword">var</span> selectVal = $(<span class="hljs-string">"#team_id"</span>).val();
+    <span class="hljs-comment">//getJSONで、別途用意している処理用PHPに必要な値を投げて受け取ります</span>
+    $.getJSON(<span class="hljs-string">"http://www.alt-plus.jp/sandbox/hachi/20150629_ajaxsample/getdata.php"</span>
+            , {<span class="hljs-string">"team_id"</span>: selectVal }            <span class="hljs-comment">//team_idに取得したValue値を投げます</span>
+            , <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, status</span>) </span>{
+                <span class="hljs-keyword">var</span> playerList = $(<span class="hljs-string">"#player_id"</span>);    <span class="hljs-comment">//連動するプルダウンのID</span>
+                playerList.children().remove();    <span class="hljs-comment">//子要素は毎回全て削除します(初期化)</span>
+                <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> data) {
+                    <span class="hljs-keyword">var</span> row = data[i];
+                    <span class="hljs-comment">//取得したデータをAppendで1行ずつ追加</span>
+                    playerList.append(<span class="hljs-keyword">new</span> Option(row[<span class="hljs-string">'player_name'</span>], row[<span class="hljs-string">'player_id'</span>]));
+                }
+             }
+             <span class="hljs-comment">/*****エラーハンドリング用
+             ).success(function(json) {
+                console.log("成功");
+            }).error(function(jqXHR, textStatus, errorThrown) {
+                console.log("エラー：" + textStatus);
+                console.log("テキスト：" + jqXHR.responseText);
+            }).complete(function() {
+                console.log("完了");
+            }
+*/</span>
+     );
+}
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"team_id"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"team_id"</span> <span class="hljs-attr">onchange</span>=<span class="hljs-string">"getTableData()"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>--チームを選択してください--<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"1"</span>&gt;</span>読売ジャイアンツ<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"2"</span>&gt;</span>中日ドラゴンズ<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"player_id"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"player_id"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>--選手を選択してください--<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<h3 id="%E8%A1%8C%E3%81%AE%E8%BF%BD%E5%8A%A0">行の追加</h3>
+<pre class="hljs"><code><div>addRow = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $(<span class="hljs-string">'#nameTable tr:last'</span>).after(<span class="hljs-string">'&lt;tr&gt;&lt;td&gt;山下&lt;/td&gt;&lt;td&gt;28&lt;/td&gt;&lt;/tr&gt;'</span>);
+}
+</div></code></pre>
+<p>getdata.php</p>
+<pre class="hljs"><code><div><span class="hljs-comment">//クライアントから送信されるチームIDを取得します</span>
+$team_id = $_GET[<span class="hljs-string">'team_id'</span>];
+
+<span class="hljs-comment">//クライアントに返す検索結果はこいつに入れます</span>
+$response = <span class="hljs-keyword">array</span>();
+
+<span class="hljs-comment">//DBからチームIDに合致する選手名を取得します</span>
+<span class="hljs-keyword">if</span> (strlen($team_id) != <span class="hljs-number">0</span>) {
+    $link = mysql_connect(<span class="hljs-string">'DBの場所'</span>, <span class="hljs-string">'DBユーザ'</span>, <span class="hljs-string">'DBパスワード'</span>);
+    mysql_select_db(<span class="hljs-string">'使用するDB名'</span>);
+    mysql_query(<span class="hljs-string">"SET NAMES utf8"</span>, $link);
+    $sql  = <span class="hljs-string">"SELECT player_id"</span>;
+    $sql .= <span class="hljs-string">"     , player_name"</span>;
+    $sql .= <span class="hljs-string">"  FROM テーブル名"</span>;
+    $sql .= sprintf(<span class="hljs-string">" WHERE team_id = '%s'"</span>, mysql_real_escape_string($team_id));
+    $sql .= <span class="hljs-string">" ORDER BY player_id ASC"</span>;
+    $result = mysql_query($sql, $link);
+    <span class="hljs-keyword">while</span> ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        array_push($response, $row);
+    }
+}
+<span class="hljs-comment">//JSON形式で値を返します</span>
+<span class="hljs-keyword">echo</span>(json_encode($response));
+</div></code></pre>
+<h2 id="datatables">DataTables</h2>
+<h3 id="%E6%97%A5%E4%BB%98%E7%AD%89%E3%81%AE%E4%B8%A6%E3%81%B3%E6%9B%BF%E3%81%88">日付等の並び替え</h3>
+<p><code>&lt;td&gt;</code>タグに<code>data-order</code>属性を仕込んで並び替えをj指示するだけ(らくちーん)<br>
+<code>&lt;thead&gt;</code>には仕込みは不要</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">data-search</span>=<span class="hljs-string">"Airi Satou"</span>&gt;</span>A. Satou<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Accountant<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>Tokyo<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>33<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">data-order</span>=<span class="hljs-string">"1227830400"</span>&gt;</span>Fri 28th Nov 08<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">data-order</span>=<span class="hljs-string">"162700"</span>&gt;</span>$162,700/y<span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+</div></code></pre>
+<blockquote>
+<p>https://datatables.net/examples/advanced_init/html5-data-attributes.html</p>
+</blockquote>
+<h3 id="datatables%E7%B5%A1%E3%81%BF">DataTables絡み</h3>
+<p>基本の使い方</p>
+<blockquote>
+<p>https://qiita.com/nissuk/items/7ac59af5de427c0585c5</p>
+</blockquote>
+<p>Ajax絡み</p>
+<blockquote>
+<p>https://datatables.net/examples/ajax/orthogonal-data.html</p>
+</blockquote>
+<h4 id="%E4%B8%A6%E3%81%B3%E6%9B%BF%E3%81%88">並び替え</h4>
+<p>以下の様にする</p>
+<pre class="hljs"><code><div>$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $(<span class="hljs-string">'#example'</span>).DataTable( {
+        <span class="hljs-attr">ajax</span>: <span class="hljs-string">"data/orthogonal.txt"</span>,
+        <span class="hljs-attr">columns</span>: [
+            { <span class="hljs-attr">data</span>: <span class="hljs-string">"name"</span> },
+            { <span class="hljs-attr">data</span>: <span class="hljs-string">"position"</span> },
+            { <span class="hljs-attr">data</span>: <span class="hljs-string">"office"</span> },
+            { <span class="hljs-attr">data</span>: <span class="hljs-string">"extn"</span> },
+            { <span class="hljs-attr">data</span>: {
+                <span class="hljs-attr">_</span>:    <span class="hljs-string">"start_date.display"</span>,
+                <span class="hljs-attr">sort</span>: <span class="hljs-string">"start_date.timestamp"</span>
+            } },
+            { <span class="hljs-attr">data</span>: <span class="hljs-string">"salary"</span> }
+        ]
+    } );
+} );
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"display"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"width:100%"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Position<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Office<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Extn.<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Start date<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Salary<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">tfoot</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Position<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Office<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Extn.<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Start date<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>Salary<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">tfoot</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"data"</span>: [
+    {
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Tiger Nixon"</span>,
+      <span class="hljs-attr">"position"</span>: <span class="hljs-string">"System Architect"</span>,
+      <span class="hljs-attr">"salary"</span>: <span class="hljs-string">"$320,800"</span>,
+      <span class="hljs-attr">"start_date"</span>: {
+        <span class="hljs-attr">"display"</span>: <span class="hljs-string">"Mon 25th Apr 11"</span>,
+        <span class="hljs-attr">"timestamp"</span>: <span class="hljs-string">"1303689600"</span>
+      },
+      <span class="hljs-attr">"office"</span>: <span class="hljs-string">"Edinburgh"</span>,
+      <span class="hljs-attr">"extn"</span>: <span class="hljs-string">"5421"</span>
+    },
+}
+</div></code></pre>
+
+</body>
+</html>
