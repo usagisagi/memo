@@ -83,7 +83,7 @@ function reverse_display(form_id1, form_id2)
 
 python側
 
-```python
+```python       
 def generate_reverse_link(div_id: str, div_id_all: str, before_text: str, after_text: str):
     """
     折り畳みボタンのリンクを作成する
