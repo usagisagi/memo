@@ -19,3 +19,13 @@ case object D extends SampleEnum
 ```
 
 > https://dev.classmethod.jp/server-side/scala-algebra-data-type/
+
+## openCVJava ##
+
+tutorial
+
+> http://opencv-java-tutorials.readthedocs.io/en/latest/index.html
+
+### install ###
+
+プロジェクト構造から`.dll`と`jar`を指定する。
