@@ -26,3 +26,27 @@ Open "C:\Sample\Data.txt" For Input As #1
     Loop
 Close #1
 ```
+
+## クラス関連 ##
+
+だいたいここ
+> https://qiita.com/Kamo123/items/a4c7749fa30d8f68df28
+
+
+### property関連 ###
+
+```vb
+' プロパティプロシージャ
+Property Get MyName() As String
+    MyName = Name
+End Property
+
+Property Let MyName(namae As String)
+    If namae = "" Then
+        ' 氏名がブランクならエラー
+        Err.Raise 10000, , "名前がブランクです"
+    End If
+
+    Name = namae
+End Property
+```
