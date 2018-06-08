@@ -50,3 +50,39 @@ Property Let MyName(namae As String)
     Name = namae
 End Property
 ```
+
+## 重複削除 ##
+
+```vb
+Private Function UniqueArray(Arr() As String) As String()
+    ' 重複を削除
+    Dim BufCollection As New Collection
+    Dim IsExist As Boolean
+    Dim Item As Variant
+    
+    For i = LBound(Arr) To UBound(Arr)
+        IsExist = False
+        For Each Item In BufCollection
+            If Arr(i) = Item Then IsExist = True
+        Next
+        If Not IsExist Then BufCollection.Add Arr(i)
+    Next
+
+    'キー項目の配列を返す
+    UniqueArray = CollectionToArray(BufCollection)
+    
+End Function
+Public Function CollectionToArray(myCol As Collection) As String()
+    Dim result() As String
+    Dim cnt     As Long
+    ReDim result(myCol.Count - 1)
+
+    For cnt = 0 To myCol.Count - 1
+        result(cnt) = myCol(cnt + 1)
+    Next cnt
+
+    CollectionToArray = result
+End Function
+
+
+```
