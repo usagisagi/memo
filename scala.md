@@ -167,6 +167,18 @@ shImg(img, title)
 }
 ```
 
+## 拡大縮小 ##
+
+`ImgProc.resize`を用いる
+
+```scala
+Mat resizeimage = new Mat()
+Size sz = new Size(100,100)
+Imgproc.resize( croppedimage, resizeimage, sz )
+```
+
+> https://stackoverflow.com/questions/20902290/how-to-resize-an-image-in-java-with-opencv
+
 ## クラス関連 ##
 
 ### traitのフィールドのオーバーライド ##
