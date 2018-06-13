@@ -70,7 +70,7 @@ Private Function UniqueArray(Arr() As String) As String()
 
     'キー項目の配列を返す
     UniqueArray = CollectionToArray(BufCollection)
-    
+
 End Function
 Public Function CollectionToArray(myCol As Collection) As String()
     Dim result() As String
@@ -83,6 +83,5 @@ Public Function CollectionToArray(myCol As Collection) As String()
 
     CollectionToArray = result
 End Function
-
 
 ```

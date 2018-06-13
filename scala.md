@@ -270,3 +270,17 @@ assert(double("2") == "22")
 ```
 
 >  http://halcat.org/scala/curryhoward/index.html
+
+## ファイルパスリストを取得 ##
+
+```scala
+def ls4(dir: String) : Unit = {
+  def ls(dir: String) : Seq[File] = {
+	new File(dir).listFiles.flatMap {
+	  case f if f.isDirectory => ls(f.getPath)
+	  case x => List(x)
+	}
+  }
+  ls(dir).filter(_.getPath.endsWith(".cpp")).foreach(println)
+}
+```
