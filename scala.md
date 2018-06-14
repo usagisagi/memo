@@ -142,7 +142,7 @@ def extractImage(document: PDDocument): Option[BufferedImage] = {
 }
 ```
 
-## Matの表示 ##
+### Matの表示 ###
 
 ```scala
 import java.awt.Image
@@ -167,7 +167,7 @@ shImg(img, title)
 }
 ```
 
-## 拡大縮小 ##
+### 拡大縮小 ###
 
 `ImgProc.resize`を用いる
 
@@ -178,6 +178,11 @@ Imgproc.resize( croppedimage, resizeimage, sz )
 ```
 
 > https://stackoverflow.com/questions/20902290/how-to-resize-an-image-in-java-with-opencv
+
+### chanelの分離と合成 ###
+
+合成は`Core.merge`にある。
+javaのListなので注意
 
 ## クラス関連 ##
 
@@ -284,3 +289,95 @@ def ls4(dir: String) : Unit = {
   ls(dir).filter(_.getPath.endsWith(".cpp")).foreach(println)
 }
 ```
+
+## ファイル入出力関連 ##
+
+> https://www.qoosky.io/techs/f7851bb2e4
+
+```scala
+import java.nio.file.{Paths, Files}
+import java.nio.file.StandardCopyOption.REPLACE_EXISTING
+import java.io.{File => JFile} // リネームして区別しやすくする
+
+object Main {
+  def main(args: Array[String]): Unit = {
+
+    // 新規ファイル作成
+    val file = Paths.get("sample.txt")
+    if(Files.notExists(file)) Files.createFile(file)
+
+    // 新規ディレクトリ作成
+    val dir = Paths.get("mydir")
+    val dirp = Paths.get("mydir", "mysubdir")
+    if(Files.notExists(dir)) Files.createDirectory(dir) // mkdir
+    if(Files.notExists(dirp)) Files.createDirectories(dirp) // mkdir -p
+
+    // ファイルサイズ
+    println(Files.size(file)) //=> 0
+
+    // ファイル移動
+    Files.move(file, file, REPLACE_EXISTING) // 存在していれば上書き
+    Files.move(file, dirp.resolve(file.getFileName), REPLACE_EXISTING) // ディレクトリ間の移動
+
+    // ファイルコピー
+    Files.copy(dirp.resolve(file.getFileName), file, REPLACE_EXISTING) // 存在していれば上書き
+
+    // ディレクトリであるかの判別
+    println(Files.isDirectory(dirp)) //=> true
+
+    // 存在すれば削除
+    Files.deleteIfExists(dirp.resolve(file.getFileName))
+    Files.deleteIfExists(dirp) // 中身が空でないとエラー
+    Files.deleteIfExists(dir) // 中身が空でないとエラー
+    Files.deleteIfExists(file)
+
+    // ディレクトリ内のファイルを探索
+    def getListOfFiles(dir: String): List[JFile] = {
+      val d = new JFile(dir)
+      if (d.exists) {
+        var files = d.listFiles.filter(_.isFile).toList
+        d.listFiles.filter(_.isDirectory).foreach{ dir =>
+          files = files ::: getListOfFiles(dir.getAbsolutePath)
+        }
+        files
+      }
+      else {
+        List[JFile]()
+      }
+    }
+    println(getListOfFiles("src")) //=> List(/path/to/src/main/scala/Main.scala, /path/to/src/test/scala/.keep)
+  }
+}
+```
+## ファイルの読み書き
+
+```scala
+import scala.io.Source
+import java.io.PrintWriter
+
+object Main {
+  def main(args: Array[String]): Unit = {
+
+    // ファイルから読み込み
+    val source = Source.fromFile("sample.txt", "UTF-8") // Shift_JIS, EUC-JP なども可
+    source.getLines.foreach{ line =>
+      println(line)
+    }
+    source.close()
+
+    // URL 指定でインターネットから読み込み
+    val source2 = Source.fromURL("http://www.example.com", "UTF-8")
+    source2.getLines.foreach{ line =>
+      println(line)
+    }
+    source2.close()
+
+    // 書き込み
+    val pw = new PrintWriter("output.txt")
+    pw.write("Hello, world")
+    pw.close
+  }
+}
+```
+
+
