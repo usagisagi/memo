@@ -380,4 +380,65 @@ object Main {
 }
 ```
 
+## プロパティファイルの読み方 ##
 
+```java
+public class PropertyUtil {
+
+    private static final String INIT_FILE_PATH = "resourse/common.properties";
+    private static final Properties properties;
+
+    private PropertyUtil() throws Exception {
+    }
+
+    static {
+        properties = new Properties();
+        try {
+            properties.load(Files.newBufferedReader(Paths.get(INIT_FILE_PATH), StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            // ファイル読み込みに失敗
+            System.out.println(String.format("ファイルの読み込みに失敗しました。ファイル名:%s", INIT_FILE_PATH));
+        }
+    }
+
+    /**
+     * プロパティ値を取得する
+     *
+     * @param key キー
+     * @return 値
+     */
+    public static String getProperty(final String key) {
+        return getProperty(key, "");
+    }
+
+    /**
+     * プロパティ値を取得する
+     *
+     * @param key キー
+     * @param defaultValue デフォルト値
+     * @return キーが存在しない場合、デフォルト値
+     *          存在する場合、値
+     */ 
+    public static String getProperty(final String key, final String defaultValue) {
+        return properties.getProperty(key, defaultValue);
+    }
+```
+> https://qiita.com/motoki1990/items/2b643ea854624b09712c
+
+
+## 外部DLLの使い方 ##
+
+```scala
+def changeJavaLibPath(): Unit ={
+  import java.lang.reflect.Field
+  // java.library.path を変更します。(この時点では反映されません)
+  System.setProperty("java.library.path", ".\\lib")
+  // sys_paths フィールドに null を代入します。
+  // これで次にライブラリーをロードするときに最新の java.library.path が参照されます。
+  val sys_paths = classOf[ClassLoader].getDeclaredField("sys_paths")
+  sys_paths.setAccessible(true)
+  sys_paths.set(null, null)
+}
+```
+
+> https://blogs.osdn.jp/2017/09/25/libpath.html#1-sys-paths-%E3%82%92-null-%E3%81%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95

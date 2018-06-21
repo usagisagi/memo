@@ -136,3 +136,28 @@ datelist = [fromday + datetime.timedelta(days=n) for n in range((today - fromday
 ```python
 ''.join([chr(int(x, 16)) for x in tar.split("\\u")[1::]])
 ```
+
+## 画像イメージをnumpuyに変換 ##
+
+np.array()にPIL.Image.open()で読み込んだ画像データを渡すとndarrayが得られる。
+
+RGB画像は行（高さ） x 列（幅） x 色（3）の三次元のndarray、白黒画像は行（高さ） x 列（幅）の二次元のndarrayになる。
+
+```python
+from PIL import Image
+import numpy as np
+
+im = np.array(Image.open('data/src/lena_square.png'))
+
+print(im.dtype)  # データ型
+# uint8
+
+print(im.ndim)  # 次元数
+# 3
+
+print(im.shape)  # サイズ（高さ x 幅 x 色数）
+# (512, 512, 3)
+```
+
+> https://note.nkmk.me/python-numpy-image-processing/
+
