@@ -161,3 +161,24 @@ print(im.shape)  # サイズ（高さ x 幅 x 色数）
 
 > https://note.nkmk.me/python-numpy-image-processing/
 
+## TensorBoardForPyTorch ##
+
+conda
+```python
+conda install -c conda-forge tensorboardx
+```
+
+git
+> https://github.com/lanpa/tensorboard-pytorch
+
+可視化はtensorBoardで`-logdir = {runs}`
+
+### graph可視化 ###
+
+```python
+from tensorboardX import SummaryWriter
+dummy_input = Variable(torch.rand(13, 1, 28, 28))
+with SummaryWriter(comment='densenet121') as w:
+    model = torchvision.models.densenet121()
+    w.add_graph(model, (dummy_input,))
+```
