@@ -32,3 +32,7 @@ sudo apt-get install easystroke
 
 1. cuda9.0のインストール
  https://medium.com/@taylordenouden/installing-tensorflow-gpu-on-ubuntu-18-04-89a142325138
+ 
+## PermissionDenied ##
+
+`sudo chown -R usagisagi:usagisagi /home/usagisagi/anaconda3`
