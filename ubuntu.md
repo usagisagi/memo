@@ -27,14 +27,16 @@ sudo apt-get install easystroke
   読み込んでReboot
 
   ```bash
-  sudo u@date-initranfs -u
+  sudo update-initramfs -u
   reboot
   ```
 
 1. driverのインストール
 
   ```bash 
-  sudo ubuntu-drivers autoinstall
+  sudo apt purge nvidia-390
+  sudo apt install nvidia-kernel-source-396
+  sudo apt install nvidia-driver-396sudo ubuntu-drivers autoinstall
   sudo reboot
   ```
   secure bootかかるので、Enroll MOK->でpassを入力して入ること
