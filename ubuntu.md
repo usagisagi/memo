@@ -34,9 +34,7 @@ sudo apt-get install easystroke
 1. driverのインストール
 
   ```bash 
-  sudo apt purge nvidia-390
-  sudo apt install nvidia-kernel-source-396
-  sudo apt install nvidia-driver-396sudo ubuntu-drivers autoinstall
+  sudo ubuntu-drivers autoinstall
   sudo reboot
   ```
   secure bootかかるので、Enroll MOK->でpassを入力して入ること
