@@ -161,7 +161,9 @@ print(im.shape)  # サイズ（高さ x 幅 x 色数）
 
 > https://note.nkmk.me/python-numpy-image-processing/
 
-## TensorBoardForPyTorch ##
+## pytorch ##
+
+### TensorBoardForPyTorch ###
 
 conda
 ```python
@@ -182,3 +184,26 @@ with SummaryWriter(comment='densenet121') as w:
     model = torchvision.models.densenet121()
     w.add_graph(model, (dummy_input,))
 ```
+
+## tensorflow ##
+
+### 保存済モデルからのVariable抽出 ###
+
+```python
+import Tensorflow as tf
+
+# グラフ構造import
+saver = tf.train.import_meta_graph('models/my_model_final.ckpt.meta')
+
+# sessionにグラフ構造をrestore
+sess = saver(sess, 'models/my_model_final.ckpt')
+
+# variablesのリストを取得
+tvars = tf.trainable_variables()
+
+# variableの値を取得
+tvars_vals = sess.run(tvars)
+```
+
+> https://github.com/google/prettytensor/issues/6
+

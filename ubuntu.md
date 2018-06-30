@@ -36,3 +36,18 @@ sudo apt-get install easystroke
 ## PermissionDenied ##
 
 `sudo chown -R usagisagi:usagisagi /home/usagisagi/anaconda3`
+
+## pycharmでtensorflowを動かす ##
+
+起動構成に環境変数を追加する
+
+```
+LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
+
+後Permission700で以下のフォルダを作る
+
+```
+/run/user/1000/snap.pycharm-community
+```
+
