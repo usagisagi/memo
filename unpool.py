@@ -68,9 +68,6 @@ if __name__ == '__main__':
     unpooled = unpooling(pooled, argmax, shape)
     unpooled_view = tf.reshape(unpooled, (4, 4))
 
-    writer = tf.summary.FileWriter("./logdir/", tf.get_default_graph())
     with tf.Session() as sess:
         init.run()
         print(unpooled_view.eval())
-
-    writer.close()
