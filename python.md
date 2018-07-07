@@ -74,6 +74,14 @@ df_train.loc[df_train['Fare'].values >= 20, 'FareCateg'] = "2: 20<30"
 df_train.loc[df_train['Fare'].values >= 30, 'FareCateg'] = "3: 30+"
 ```
 
+### pandasの関数適用 ###
+
++ 要素（スカラー値）に対する関数
+    + Seriesの各要素に適用: map()
+    + DataFrameの各要素に適用: applymap()
++ 行・列（一次元配列）に対する関数
+    + DataFrame, Seriesの各行・各列に適用: apply()
+
 ## Numpy ##
 
 ### one-hot-vector ###
@@ -104,6 +112,32 @@ np.concatenate((a, b), axis=1)
 Out[25]: 
 array([[1, 2, 5, 6],
        [3, 4, 7, 8]])
+```
+
+### 配列の複製 ###
+ 
+`np.tile`を用いる
+
+```python
+g = np.arange(9).reshape(3,3)
+np.tile(g, 3)
+# g.shape = (3,3,3)
+```
+
+### 画像処理 ###
+
+関数は`tf.image`or`tf.keras`
+
+方法はチュートリアルが詳しい
+> https://www.tensorflow.org/api_guides/python/image#Converting_Between_Colorspaces
+
+### 画像読み込み ###
+
+```python
+with open(file_path, 'rb') as f:
+    img = tf.image.decode_image(f.read(), channels=3)   # discard alpha channel
+    img = tf.reshape(img, img.eval().shape) # inputed 0-D Tensor, so need to resize
+        
 ```
 
 ## PyCharm開始スクリプト ##
@@ -190,20 +224,41 @@ with SummaryWriter(comment='densenet121') as w:
 ### 保存済モデルからのVariable抽出 ###
 
 ```python
-import Tensorflow as tf
+import tensorflow as tf
 
 # グラフ構造import
 saver = tf.train.import_meta_graph('models/my_model_final.ckpt.meta')
 
 # sessionにグラフ構造をrestore
-sess = saver(sess, 'models/my_model_final.ckpt')
+sess = tf.Session()
+saver.restore(sess, 'models/my_model_final.ckpt')
 
 # variablesのリストを取得
 tvars = tf.trainable_variables()
-
-# variableの値を取得
-tvars_vals = sess.run(tvars)
 ```
 
 > https://github.com/google/prettytensor/issues/6
 
+### 値の範囲を制限 ###
+
+`tf.clip_by_value`を用いる
+
+> https://www.tensorflow.org/api_docs/python/tf/clip_by_value
+
+## sklearn ##
+
+### train-test-validation ###
+
+```python
+X_train, X_test, y_train, y_test 
+    = train_test_split(X, y, test_size=0.2, random_state=1)
+
+X_train, X_val, y_train, y_val 
+    = train_test_split(X_train, y_train, test_size=0.2, random_state=1)
+```
+
+## PIL ##
+
+HandBook/Tutorialに色々ある
+
+> https://pillow.readthedocs.io/en/5.2.x/index.html
