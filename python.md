@@ -82,6 +82,11 @@ df_train.loc[df_train['Fare'].values >= 30, 'FareCateg'] = "3: 30+"
 + 行・列（一次元配列）に対する関数
     + DataFrame, Seriesの各行・各列に適用: apply()
 
+
+### ndarrayのSeriesを新しい軸で積み重ねる ###
+
+`np.stack(image_array_set)`
+
 ## Numpy ##
 
 ### one-hot-vector ###
@@ -171,7 +176,7 @@ datelist = [fromday + datetime.timedelta(days=n) for n in range((today - fromday
 ''.join([chr(int(x, 16)) for x in tar.split("\\u")[1::]])
 ```
 
-## 画像イメージをnumpuyに変換 ##
+## 画像イメージをnumpyに変換 ##
 
 np.array()にPIL.Image.open()で読み込んだ画像データを渡すとndarrayが得られる。
 
@@ -245,6 +250,99 @@ tvars = tf.trainable_variables()
 
 > https://www.tensorflow.org/api_docs/python/tf/clip_by_value
 
+### グラフ関係 ###
+
++ `tf.get_collection(tf.GraphKeys.*)`で現在のグラフのいろいろなものを取れる
+> https://www.tensorflow.org/api_docs/python/tf/GraphKeys
+
++ `out.op.inputs[0].op.inputs[0]...` とすることでノードを逆に辿れる
+    + ここから続きを接続するもよし
+
++ `[n.name for n in tf.get_default_graph().as_graph_def().node]`で全node名を取得
+    + これやるくらいならtensorboardのほうが早い
+    + node取り出すには`tf.get_default_graph().get_tensor_by_name(name)`で取り出す
+
+
+### kernel初期化 ###
+
+`tf.keras.initializers.{operation}`
+
+heの初期化とかもできる。一様分布が標準らしいね。
+
+### 精度の測定 ###
+
+```python
+with tf.name_scope('eval'):
+    correct = tf.nn.in_top_k(logit, y, 1)
+    accuracy = tf.reduce_mean(tf.cast(correct, tf.float32), name='accuracy')
+```
+
+### EarlyStopping ###
+
+lossの最小のモデルを利用する
+
+```python
+# early_stopping用
+best_loss_val = np.infty
+check_interval = 50
+checks_since_last_progress = 0
+max_checks_without_progress = 50
+best_model_params= None
+
+# 学習フェーズ
+with tf.Session() as sess:
+    init.run()
+    restore_saver.restore(sess, load_path)
+    h5_cache = sess.run(hidden5, feed_dict={x: train_x})
+    validate_dict = {x: validate_x, y: validate_y}
+    test_dict = {x: test_x, y: test_y}
+
+    for epoch in range(n_epochs):
+        shuffled_idx = np.random.permutation(train_x.shape[0])
+        hidden5_batches = np.array_split(h5_cache[shuffled_idx], n_batches)
+        y_batches = np.array_split(train_y[shuffled_idx], n_batches)
+        for idx, (hidden5_batch, y_batch) in enumerate(zip(hidden5_batches, y_batches)):
+            sess.run(training_op, feed_dict={hidden5: hidden5_batch, y: y_batch})
+
+            if is_early_stop:
+                if idx % check_interval == 0:
+                    loss_val = loss.eval(feed_dict=validate_dict)
+                    if loss_val < best_loss_val:
+                        best_loss_val = loss_val
+                        checks_since_last_progress = 0
+                        best_model_params = get_model_params()
+                    else:
+                        checks_since_last_progress += 1
+
+            writer.add_summary(loss_summary.eval(feed_dict=validate_dict), epoch * n_batches + idx)
+        print(epoch, ' epoch accuracy:', accuracy.eval(feed_dict=validate_dict))
+        print('best loss:', best_loss_val)
+        if checks_since_last_progress > max_checks_without_progress:
+            print('early stopping')
+            break
+
+    if best_model_params:
+        restore_model_params(best_model_params)
+    print('test data accuracy:', accuracy.eval(feed_dict=test_dict))
+    saver.save(sess, save_path)
+```
+
+### kerasの画像前処理 ###
+
+`tf.keras.preprossing`を用いる
+
+コンストラクタで処理方法を規定し、flowでbatchを生成
+
+> https://keras.io/ja/preprocessing/image/
+> https://keras.io/preprocessing/image/
+
+.flowで投入
+
++ random_crop => `tf.random_crop`がある
+
+前処理の説明
+> http://aidiary.hatenablog.com/entry/20161212/1481549365
+
 ## sklearn ##
 
 ### train-test-validation ###
@@ -257,8 +355,11 @@ X_train, X_val, y_train, y_val
     = train_test_split(X_train, y_train, test_size=0.2, random_state=1)
 ```
 
+
 ## PIL ##
 
 HandBook/Tutorialに色々ある
 
 > https://pillow.readthedocs.io/en/5.2.x/index.html
+
+
