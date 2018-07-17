@@ -1,5 +1,9 @@
 # Python #
 
+## from inpynb to html ##
+
+ipython nbconvert --to html {filename}
+
 ## 親フォルダ ##
 
 ```python
@@ -41,6 +45,13 @@ tstr = tdatetime.strftime('%Y/%m/%d')
 ```
 
 ## pandas ##
+
+### DataFrameのselect ###
+
+filter => dropna
+
+### ソート ###
+> https://note.nkmk.me/python-pandas-sort-values-sort-index/
 
 ### CSV周り ###
 > https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html
@@ -145,6 +156,12 @@ with open(file_path, 'rb') as f:
         
 ```
 
+### ビット配列から整数に変換 ###
+
+```python
+b.dot(2**np.arange(b.size)[::-1])
+```
+
 ## PyCharm開始スクリプト ##
 
 ```python
@@ -226,6 +243,16 @@ with SummaryWriter(comment='densenet121') as w:
 
 ## tensorflow ##
 
+### modelのレストア ###
+
+```python
+init = tf.global_variables_initializer()
+restore_saver = tf.train.import_meta_graph(model_name + ".meta")
+with tf.Session() as sess:
+    init.run()
+    restore_saver.restore(sess, model_name)
+```
+
 ### 保存済モデルからのVariable抽出 ###
 
 ```python
@@ -239,7 +266,8 @@ sess = tf.Session()
 saver.restore(sess, 'models/my_model_final.ckpt')
 
 # variablesのリストを取得
-tvars = tf.trainable_variables()
+vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
+sess.run(tvars[0])
 ```
 
 > https://github.com/google/prettytensor/issues/6
@@ -343,6 +371,17 @@ with tf.Session() as sess:
 前処理の説明
 > http://aidiary.hatenablog.com/entry/20161212/1481549365
 
+
+### TFRecord ###
+
+> https://www.tensorflow.org/guide/datasets
+
+> http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/
+
+> https://qiita.com/YusukeSuzuki@github/items/1388534bc274bc64b9b2#%E5%8F%82%E8%80%83--%E8%87%AA%E5%89%8D%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A8%E8%87%AA%E5%89%8D%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89
+
+前処理関連
+> https://www.tensorflow.org/performance/datasets_performance
 ## sklearn ##
 
 ### train-test-validation ###
@@ -355,6 +394,9 @@ X_train, X_val, y_train, y_val
     = train_test_split(X_train, y_train, test_size=0.2, random_state=1)
 ```
 
+### 標準分布へ正規化 ###
+
+StandardScaler
 
 ## PIL ##
 
