@@ -1,5 +1,9 @@
 # Python #
 
+## from inpynb to html ##
+
+ipython nbconvert --to html {filename}
+
 ## 親フォルダ ##
 
 ```python
@@ -42,6 +46,13 @@ tstr = tdatetime.strftime('%Y/%m/%d')
 
 ## pandas ##
 
+### DataFrameのselect ###
+
+filter => dropna
+
+### ソート ###
+> https://note.nkmk.me/python-pandas-sort-values-sort-index/
+
 ### CSV周り ###
 > https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html
 
@@ -73,6 +84,19 @@ df_train.loc[df_train['Fare'].values >= 10, 'FareCateg'] = "1: 10<20"
 df_train.loc[df_train['Fare'].values >= 20, 'FareCateg'] = "2: 20<30"
 df_train.loc[df_train['Fare'].values >= 30, 'FareCateg'] = "3: 30+"
 ```
+
+### pandasの関数適用 ###
+
++ 要素（スカラー値）に対する関数
+    + Seriesの各要素に適用: map()
+    + DataFrameの各要素に適用: applymap()
++ 行・列（一次元配列）に対する関数
+    + DataFrame, Seriesの各行・各列に適用: apply()
+
+
+### ndarrayのSeriesを新しい軸で積み重ねる ###
+
+`np.stack(image_array_set)`
 
 ## Numpy ##
 
@@ -106,6 +130,38 @@ array([[1, 2, 5, 6],
        [3, 4, 7, 8]])
 ```
 
+### 配列の複製 ###
+ 
+`np.tile`を用いる
+
+```python
+g = np.arange(9).reshape(3,3)
+np.tile(g, 3)
+# g.shape = (3,3,3)
+```
+
+### 画像処理 ###
+
+関数は`tf.image`or`tf.keras`
+
+方法はチュートリアルが詳しい
+> https://www.tensorflow.org/api_guides/python/image#Converting_Between_Colorspaces
+
+### 画像読み込み ###
+
+```python
+with open(file_path, 'rb') as f:
+    img = tf.image.decode_image(f.read(), channels=3)   # discard alpha channel
+    img = tf.reshape(img, img.eval().shape) # inputed 0-D Tensor, so need to resize
+        
+```
+
+### ビット配列から整数に変換 ###
+
+```python
+b.dot(2**np.arange(b.size)[::-1])
+```
+
 ## PyCharm開始スクリプト ##
 
 ```python
@@ -137,7 +193,7 @@ datelist = [fromday + datetime.timedelta(days=n) for n in range((today - fromday
 ''.join([chr(int(x, 16)) for x in tar.split("\\u")[1::]])
 ```
 
-## 画像イメージをnumpuyに変換 ##
+## 画像イメージをnumpyに変換 ##
 
 np.array()にPIL.Image.open()で読み込んだ画像データを渡すとndarrayが得られる。
 
@@ -161,7 +217,9 @@ print(im.shape)  # サイズ（高さ x 幅 x 色数）
 
 > https://note.nkmk.me/python-numpy-image-processing/
 
-## TensorBoardForPyTorch ##
+## pytorch ##
+
+### TensorBoardForPyTorch ###
 
 conda
 ```python
@@ -182,3 +240,168 @@ with SummaryWriter(comment='densenet121') as w:
     model = torchvision.models.densenet121()    # modelはinstance
     w.add_graph(model, (dummy_input,))
 ```
+
+## tensorflow ##
+
+### modelのレストア ###
+
+```python
+init = tf.global_variables_initializer()
+restore_saver = tf.train.import_meta_graph(model_name + ".meta")
+with tf.Session() as sess:
+    init.run()
+    restore_saver.restore(sess, model_name)
+```
+
+### 保存済モデルからのVariable抽出 ###
+
+```python
+import tensorflow as tf
+
+# グラフ構造import
+saver = tf.train.import_meta_graph('models/my_model_final.ckpt.meta')
+
+# sessionにグラフ構造をrestore
+sess = tf.Session()
+saver.restore(sess, 'models/my_model_final.ckpt')
+
+# variablesのリストを取得
+vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
+sess.run(tvars[0])
+```
+
+> https://github.com/google/prettytensor/issues/6
+
+### 値の範囲を制限 ###
+
+`tf.clip_by_value`を用いる
+
+> https://www.tensorflow.org/api_docs/python/tf/clip_by_value
+
+### グラフ関係 ###
+
++ `tf.get_collection(tf.GraphKeys.*)`で現在のグラフのいろいろなものを取れる
+> https://www.tensorflow.org/api_docs/python/tf/GraphKeys
+
++ `out.op.inputs[0].op.inputs[0]...` とすることでノードを逆に辿れる
+    + ここから続きを接続するもよし
+
++ `[n.name for n in tf.get_default_graph().as_graph_def().node]`で全node名を取得
+    + これやるくらいならtensorboardのほうが早い
+    + node取り出すには`tf.get_default_graph().get_tensor_by_name(name)`で取り出す
+
+
+### kernel初期化 ###
+
+`tf.keras.initializers.{operation}`
+
+heの初期化とかもできる。一様分布が標準らしいね。
+
+### 精度の測定 ###
+
+```python
+with tf.name_scope('eval'):
+    correct = tf.nn.in_top_k(logit, y, 1)
+    accuracy = tf.reduce_mean(tf.cast(correct, tf.float32), name='accuracy')
+```
+
+### EarlyStopping ###
+
+lossの最小のモデルを利用する
+
+```python
+# early_stopping用
+best_loss_val = np.infty
+check_interval = 50
+checks_since_last_progress = 0
+max_checks_without_progress = 50
+best_model_params= None
+
+# 学習フェーズ
+with tf.Session() as sess:
+    init.run()
+    restore_saver.restore(sess, load_path)
+    h5_cache = sess.run(hidden5, feed_dict={x: train_x})
+    validate_dict = {x: validate_x, y: validate_y}
+    test_dict = {x: test_x, y: test_y}
+
+    for epoch in range(n_epochs):
+        shuffled_idx = np.random.permutation(train_x.shape[0])
+        hidden5_batches = np.array_split(h5_cache[shuffled_idx], n_batches)
+        y_batches = np.array_split(train_y[shuffled_idx], n_batches)
+        for idx, (hidden5_batch, y_batch) in enumerate(zip(hidden5_batches, y_batches)):
+            sess.run(training_op, feed_dict={hidden5: hidden5_batch, y: y_batch})
+
+            if is_early_stop:
+                if idx % check_interval == 0:
+                    loss_val = loss.eval(feed_dict=validate_dict)
+                    if loss_val < best_loss_val:
+                        best_loss_val = loss_val
+                        checks_since_last_progress = 0
+                        best_model_params = get_model_params()
+                    else:
+                        checks_since_last_progress += 1
+
+            writer.add_summary(loss_summary.eval(feed_dict=validate_dict), epoch * n_batches + idx)
+        print(epoch, ' epoch accuracy:', accuracy.eval(feed_dict=validate_dict))
+        print('best loss:', best_loss_val)
+        if checks_since_last_progress > max_checks_without_progress:
+            print('early stopping')
+            break
+
+    if best_model_params:
+        restore_model_params(best_model_params)
+    print('test data accuracy:', accuracy.eval(feed_dict=test_dict))
+    saver.save(sess, save_path)
+```
+
+### kerasの画像前処理 ###
+
+`tf.keras.preprossing`を用いる
+
+コンストラクタで処理方法を規定し、flowでbatchを生成
+
+> https://keras.io/ja/preprocessing/image/
+> https://keras.io/preprocessing/image/
+
+.flowで投入
+
++ random_crop => `tf.random_crop`がある
+
+前処理の説明
+> http://aidiary.hatenablog.com/entry/20161212/1481549365
+
+
+### TFRecord ###
+
+> https://www.tensorflow.org/guide/datasets
+
+> http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/
+
+> https://qiita.com/YusukeSuzuki@github/items/1388534bc274bc64b9b2#%E5%8F%82%E8%80%83--%E8%87%AA%E5%89%8D%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A8%E8%87%AA%E5%89%8D%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89
+
+前処理関連
+> https://www.tensorflow.org/performance/datasets_performance
+## sklearn ##
+
+### train-test-validation ###
+
+```python
+X_train, X_test, y_train, y_test 
+    = train_test_split(X, y, test_size=0.2, random_state=1)
+
+X_train, X_val, y_train, y_val 
+    = train_test_split(X_train, y_train, test_size=0.2, random_state=1)
+```
+
+### 標準分布へ正規化 ###
+
+StandardScaler
+
+## PIL ##
+
+HandBook/Tutorialに色々ある
+
+> https://pillow.readthedocs.io/en/5.2.x/index.html
+
+

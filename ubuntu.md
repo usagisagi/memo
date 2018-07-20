@@ -12,24 +12,9 @@ sudo apt-get install easystroke
 ```
 ## Ubuntu 18.04 -> nvidia driver -> CUDA -> cuDNN ##
 
-1. nouveau 無効化
+1. ubuntuインストール時にサードパーティ有効化し、`Trun off Secure Boot`にチェック
 
-  ```bash
-  sudo vi /etc/modprobe.d/blacklist-nouveau.conf
-  ```
-  viで
-
-  ```
-  blacklist nouveau
-  optitions nouveau modeset=0
-  ```
-
-  読み込んでReboot
-
-  ```bash
-  sudo u@date-initranfs -u
-  reboot
-  ```
+1. インストール後再起動し、MOK青画面でChange Secure Boot-でYesを選択する
 
 1. driverのインストール
 
@@ -37,7 +22,7 @@ sudo apt-get install easystroke
   sudo ubuntu-drivers autoinstall
   sudo reboot
   ```
-  secure bootかかるので、Enroll MOK->でpassを入力して入ること
+  インストール途中止まったら、UEFIのパスワードを入力すること
 
   再起動後、以下のコマンドで確認
 
@@ -45,19 +30,24 @@ sudo apt-get install easystroke
   nbidia-smi
   ```
 
-1. cudaのインストール
+1. cuda9.0のインストール
+ https://medium.com/@taylordenouden/installing-tensorflow-gpu-on-ubuntu-18-04-89a142325138
+ 
+## PermissionDenied ##
 
-  ```bash
-  sudo apt install nvidia-cuda-toolkit
-  ```
-1. cuDNNのインストール
+`sudo chown -R usagisagi:usagisagi /home/usagisagi/anaconda3`
 
-  > https://qiita.com/yukoba/items/4733e8602fa4acabcc35
-  公開鍵は別途問い合わせる
+## pycharmでtensorflowを動かす ##
 
-  ```
-  echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" | sudo tee /etc/apt/sources.list.d/nvidia-ml.list
-  sudo apt update
-  sudo apt install libcudnn7-dev
-  ```
-  
+起動構成に環境変数を追加する
+
+```
+LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+```
+
+後Permission700で以下のフォルダを作る
+
+```
+/run/user/1000/snap.pycharm-community
+```
+
