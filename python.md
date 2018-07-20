@@ -179,6 +179,6 @@ git
 from tensorboardX import SummaryWriter
 dummy_input = Variable(torch.rand(13, 1, 28, 28))
 with SummaryWriter(comment='densenet121') as w:
-    model = torchvision.models.densenet121()
+    model = torchvision.models.densenet121()    # modelはinstance
     w.add_graph(model, (dummy_input,))
 ```
