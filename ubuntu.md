@@ -50,4 +50,33 @@ LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 ```
 /run/user/1000/snap.pycharm-community
 ```
+## Tensorflowを再インストール ##
+
+```bash
+pip uninstall tensorflow protobuf --yes
+find $CONDA_PREFIX -name "tensorflow" | xargs -Ipkg rm -rfv pkg
+pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.9.0-cp36-cp36m-linux_x86_64.whl --no-cache-dir
+```
+
+### Ubuntu 18.04にScalaとSbtとJavaをインストール ###
+
+```bash
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt update
+sudo apt install oracle-java8-installer
+sudo apt install oracle-java8-set-default
+javac -version
+
+
+```
+
+> http://www.codebind.com/linux-tutorials/install-scala-sbt-java-ubuntu-18-04-lts-linux/
+
+## UbuntuにOpenCVをインストール ##
+
+きついけど頑張れ
+javaのパスに注意
+
+> https://github.com/opencv-java/opencv-java-tutorials/blob/master/docs/source/01-installing-opencv-for-java.rst
+
 
