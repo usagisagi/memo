@@ -391,6 +391,10 @@ class TFRecordは入出力がTensorのみっぽいので注意
 前処理関連
 > https://www.tensorflow.org/performance/datasets_performance
 
+一番わかり易い
+> https://qiita.com/antimon2/items/c7d2285d34728557e81d
+>  https://www.cresco.co.jp/blog/entry/3024/
+
 ### GPUのメモリ関連 ###
 
 session毎にメモリの最大値を制限する
