@@ -257,40 +257,42 @@ with tf.Session() as sess:
 
 ```python
 import tensorflow as tf
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path('models/my_model_final.ckpt.meta')
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path
+-Djava.library.pathel_final.ckpt')
+-Djava.library.path
+-Djava.library.path
+-Djava.library.patheys.TRAINABLE_VARIABLES)
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path
+-Djava.library.pathtensor/issues/6
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path
+-Djava.library.pathocs/python/tf/clip_by_value
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path*)`で現在のグラフのいろいろなものを取れる
+-Djava.library.pathocs/python/tf/GraphKeys
+-Djava.library.path
+-Djava.library.path.` とすることでノードを逆に辿れる
+-Djava.library.path
+-Djava.library.path
+-Djava.library.path_graph().as_graph_def().node]`で全node名を取得
+-Djava.library.pathdのほうが早い
+-Djava.library.pathult_graph().get_tensor_by_name(name)`で取り出す
+-Djava.library.path
 
-# グラフ構造import
-saver = tf.train.import_meta_graph('models/my_model_final.ckpt.meta')
-
-# sessionにグラフ構造をrestore
-sess = tf.Session()
-saver.restore(sess, 'models/my_model_final.ckpt')
-
-# variablesのリストを取得
-vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
-sess.run(tvars[0])
+-Djava.library.path
 ```
-
-> https://github.com/google/prettytensor/issues/6
-
-### 値の範囲を制限 ###
-
-`tf.clip_by_value`を用いる
-
-> https://www.tensorflow.org/api_docs/python/tf/clip_by_value
-
-### グラフ関係 ###
-
-+ `tf.get_collection(tf.GraphKeys.*)`で現在のグラフのいろいろなものを取れる
-> https://www.tensorflow.org/api_docs/python/tf/GraphKeys
-
-+ `out.op.inputs[0].op.inputs[0]...` とすることでノードを逆に辿れる
-    + ここから続きを接続するもよし
-
-+ `[n.name for n in tf.get_default_graph().as_graph_def().node]`で全node名を取得
-    + これやるくらいならtensorboardのほうが早い
-    + node取り出すには`tf.get_default_graph().get_tensor_by_name(name)`で取り出す
-
-
 ### kernel初期化 ###
 
 `tf.keras.initializers.{operation}`
@@ -374,15 +376,54 @@ with tf.Session() as sess:
 
 ### TFRecord ###
 
+class TFRecordは入出力がTensorのみっぽいので注意
+（最も、Tensorまで落とし込んで初めて**前処理ができた**なのだけど）
 > https://www.tensorflow.org/guide/datasets
 
+ここたへんは低水準でわかりやすいかも
+> https://www.tensorflow.org/api_guides/python/reading_data#_QueueRunner_
+
+後半でバッチ処理について解説
 > http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/
 
 > https://qiita.com/YusukeSuzuki@github/items/1388534bc274bc64b9b2#%E5%8F%82%E8%80%83--%E8%87%AA%E5%89%8D%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A8%E8%87%AA%E5%89%8D%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89
 
 前処理関連
 > https://www.tensorflow.org/performance/datasets_performance
+
+### GPUのメモリ関連 ###
+
+session毎にメモリの最大値を制限する
+
+```python
+config = tf.ConfigProto(
+    gpu_options=tf.GPUOptions(
+        per_process_gpu_memory_fraction=0.5 # 最大値の50%まで
+    )
+)
+sess = sess = tf.Session(config=config)
+```
+
+他の方法もある
+> https://qiita.com/kikusumk3/items/907565559739376076b9
+
 ## sklearn ##
+
+### 自作Estimator ###
+
+使い方はpythonで始める機械学習が一番くわしい
+
+公式
+
+> http://scikit-learn.org/stable/developers/contributing.html#rolling-your-own-estimator
+
+多分get_paramとset_paramはいらない
+
+> https://qiita.com/_takoika/items/89a7e42dd0dc964d0e29
+
+あたらしいけど真似しないほうが
+
+> https://qiita.com/roronya/items/fdf35d4f69ea62e1dd91#%E4%BE%8B1-%E8%87%AA%E4%BD%9Clinearregression
 
 ### train-test-validation ###
 
@@ -403,5 +444,3 @@ StandardScaler
 HandBook/Tutorialに色々ある
 
 > https://pillow.readthedocs.io/en/5.2.x/index.html
-
-
