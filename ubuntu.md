@@ -80,3 +80,17 @@ javaのパスに注意
 > https://github.com/opencv-java/opencv-java-tutorials/blob/master/docs/source/01-installing-opencv-for-java.rst
 
 
+## mysql ##
+
+### 停止開始再起動 ###
+`sudo /etc/init.d/mysql [start/stop/restart]`
+
+### 移動時のpermission denied ###
+
+> https://askubuntu.com/questions/844614/16-04-cant-mysqld-initialize-in-non-default-location
+
+```sh
+sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+cd /etc/apparmor.d/disable
+sudo ln -s /etc/apparmor.d/usr.sbin.mysqld .
+```

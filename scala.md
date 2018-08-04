@@ -442,3 +442,50 @@ def changeJavaLibPath(): Unit ={
 ```
 
 > https://blogs.osdn.jp/2017/09/25/libpath.html#1-sys-paths-%E3%82%92-null-%E3%81%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95
+
+## neologedを用いた分かち書き ##
+
+公式Qiita
+
+> https://qiita.com/sorami/items/99604ef105f13d2d472b
+
+
+### sudachiのインストール ###
++ mavenで`lib/sudachi-0.1.1-SNAPSHOT.jar`をDLして指定
+
++ 辞書を以下からDLして同一Libに入れる。以下のリポジトリは公式。
+ https://oss.sonatype.org/content/repositories/snapshots/com/worksap/nlp/sudachi/0.1.1-SNAPSHOT/
+
+
+### 動作確認 ###
+ + apiDocument(JavaDoc)は以下から
+  ![](sudachi_docs/index.html)sudachiのjavadocをbuild
+
+使い方
+
+> http://kawami.hatenablog.jp/entry/2017/12/17/235904
+
+
+ここからinstall
+
+> https://qiita.com/katsuta/items/a795fb9a7cd7795bb5af
+
++ GitLFSのインストール
+  curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+
++ mavenのインストール
+  `sudo apt install maven`
+
++ git-clone -> install 
+
+  ```sh
+  git clone https://github.com/WorksApplications/Sudachi.git
+  cd Sudachi/
+  mvn package
+  ```
+
+  sudachi-0.1.1-SNAPSHOT.jarができる
+
+
+
+

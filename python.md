@@ -307,6 +307,9 @@ with tf.name_scope('eval'):
     accuracy = tf.reduce_mean(tf.cast(correct, tf.float32), name='accuracy')
 ```
 
+### DL性能改善 ###
+> https://qiita.com/jiny2001/items/d9dec2597648812ab8e5
+
 ### EarlyStopping ###
 
 lossの最小のモデルを利用する
@@ -376,15 +379,24 @@ with tf.Session() as sess:
 
 ### TFRecord ###
 
+やっぱり固めた段階でTensorにするしかない
+
 class TFRecordは入出力がTensorのみっぽいので注意
+mapを使ってparseするのは`Parsing tf.Example protocol buffer messages`、`Decoding image data and resizing it`に記載
 （最も、Tensorまで落とし込んで初めて**前処理ができた**なのだけど）
 > https://www.tensorflow.org/guide/datasets
+
+DataSetsのAPIはここ
+> https://www.tensorflow.org/api_docs/python/tf/data/TFRecordDataset#shuffle
+
+Imageのパースとreshapeはここ利用
+> http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/
+
 
 ここたへんは低水準でわかりやすいかも
 > https://www.tensorflow.org/api_guides/python/reading_data#_QueueRunner_
 
 後半でバッチ処理について解説
-> http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/
 
 > https://qiita.com/YusukeSuzuki@github/items/1388534bc274bc64b9b2#%E5%8F%82%E8%80%83--%E8%87%AA%E5%89%8D%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A8%E8%87%AA%E5%89%8D%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89
 
@@ -393,8 +405,19 @@ class TFRecordは入出力がTensorのみっぽいので注意
 
 一番わかり易い
 > https://qiita.com/antimon2/items/c7d2285d34728557e81d
->  https://www.cresco.co.jp/blog/entry/3024/
+> https://www.cresco.co.jp/blog/entry/3024/
 
+#### padded_batch ####
+
+padded_shapeはtupleにする
+datasetを返すので注意
+```python
+
+dataset.padded_batch(batch_size, padded_shapes=([800, 600, 3],[800, 600, 3],[800, 600, 4]))
+```
+
+> https://stackoverflow.com/questions/45955241/how-do-i-create-padded-batches-in-tensorflow-for-tf-train-sequenceexample-data-u
+> 
 ### GPUのメモリ関連 ###
 
 session毎にメモリの最大値を制限する
@@ -410,6 +433,15 @@ sess = sess = tf.Session(config=config)
 
 他の方法もある
 > https://qiita.com/kikusumk3/items/907565559739376076b9
+
+### FCN 実装例 ###
+。https://qiita.com/tktktks10/items/0f551aea27d2f62ef708
+
+### name scopeの取得法 ###
+
+`tf.contrib.framework.get_name_scope`
+
+> https://stackoverflow.com/questions/40907769/how-to-get-current-tensorflow-name-scope
 
 ## sklearn ##
 
