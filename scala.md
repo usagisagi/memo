@@ -492,7 +492,11 @@ def changeJavaLibPath(): Unit ={
 
 intelliJからmysql-connector-javaを入れる
 
-### connection確率 ###
+以下、ここから
+
+> http://www.ne.jp/asahi/hishidama/home/tech/scala/sample/jdbc_insert.html
+
+### connection ###
 
 ```scala
 import java.sql.DriverManager
