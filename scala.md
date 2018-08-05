@@ -486,6 +486,26 @@ def changeJavaLibPath(): Unit ={
 
   sudachi-0.1.1-SNAPSHOT.jarができる
 
+## Database関連 ##
 
+### Connecter/J のインストール ###
 
+intelliJからmysql-connector-javaを入れる
 
+### connection確率 ###
+
+```scala
+import java.sql.DriverManager
+
+// SSLを使わない
+val url = "jdbc:mysql://localhost:3306/sandbox?autoReconnect=true&useSSL=false"
+val username = ___
+val password = ___
+val connection = DriverManager.getConnection(url, username, password)
+```
+
+```sh
+sudo dpkg ...deb
+sudo apt-get update
+export CLASSPATH=$CLASSPATH:/usr/share/java/mysql.jar
+```
