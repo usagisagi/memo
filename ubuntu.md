@@ -80,3 +80,49 @@ javaのパスに注意
 > https://github.com/opencv-java/opencv-java-tutorials/blob/master/docs/source/01-installing-opencv-for-java.rst
 
 
+## mysql ##
+
+### インストール ###
+
+> http://yikedd.iteye.com/blog/2422566
+
+設定したらrebootする
+
+以下メモ
+
+```markdown
+`mysqld --verbose --help`でオプションが見られる
+
+> https://www.digitalocean.com/community/tutorials/how-to-install-the-latest-mysql-on-ubuntu-18-04
+
++ `mysqld`は`sudo`で動かない
+  `sudo chmod 777 /var/log/mysql/error.log`で権限を変更する
+
+### uninstall ###
+
+```bash
+sudo apt-get remove --purge mysql-server* mysql-common 
+sudo apt-get autoremove --purge 
+sudo rm -r /etc/mysql
+sudo rm -r /var/lib/mysql
+```
+### 停止開始再起動 ###
+
+`sudo /etc/init.d/mysql [start/stop/restart]`
+
+### 移動時のpermission denied ###
+
+> https://askubuntu.com/questions/844614/16-04-cant-mysqld-initialize-in-non-default-location
+
+> https://www.digitalocean.com/community/tutorials/how-to-move-a-mysql-data-directory-to-a-new-location-on-ubuntu-18-04
+
+```sh
+sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+cd /etc/apparmor.d/disable
+sudo ln -s /etc/apparmor.d/usr.sbin.mysqld .
+```
+
+SELinuxが邪魔する
+> http://enakai00.hatenablog.com/entry/20121112/1352693845
+
+```
