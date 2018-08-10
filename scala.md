@@ -515,3 +515,18 @@ sudo dpkg ...deb
 sudo apt-get update
 export CLASSPATH=$CLASSPATH:/usr/share/java/mysql.jar
 ```
+
+## loan pattern ##
+
+```scala
+def withFile[A](filename: String)(f: Source => A): A = {
+  val s = Source.fromFile(filename)
+  try {
+    f(s)
+  } finally {
+    s.close()
+  }
+}
+
+withFile[A](filename: String)(f: scala.io.Source => A)A
+```
