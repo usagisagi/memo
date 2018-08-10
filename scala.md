@@ -433,6 +433,7 @@ def changeJavaLibPath(): Unit ={
   import java.lang.reflect.Field
   // java.library.path を変更します。(この時点では反映されません)
   System.setProperty("java.library.path", ".\\lib")
+  
   // sys_paths フィールドに null を代入します。
   // これで次にライブラリーをロードするときに最新の java.library.path が参照されます。
   val sys_paths = classOf[ClassLoader].getDeclaredField("sys_paths")
@@ -451,6 +452,7 @@ def changeJavaLibPath(): Unit ={
 
 
 ### sudachiのインストール ###
+
 + mavenで`lib/sudachi-0.1.1-SNAPSHOT.jar`をDLして指定
 
 + 辞書を以下からDLして同一Libに入れる。以下のリポジトリは公式。
