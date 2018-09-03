@@ -530,3 +530,11 @@ def withFile[A](filename: String)(f: Source => A): A = {
 
 withFile[A](filename: String)(f: scala.io.Source => A)A
 ```
+
+## メモリリークしてるぞ🐰 ##
+
+参考
+> https://qiita.com/opengl-8080/items/64152ee9965441f7667b
+
+
+

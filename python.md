@@ -253,46 +253,6 @@ with tf.Session() as sess:
     restore_saver.restore(sess, model_name)
 ```
 
-### 保存済モデルからのVariable抽出 ###
-
-```python
-import tensorflow as tf
--Djava.library.path
--Djava.library.path
--Djava.library.path('models/my_model_final.ckpt.meta')
--Djava.library.path
--Djava.library.path
--Djava.library.path
--Djava.library.pathel_final.ckpt')
--Djava.library.path
--Djava.library.path
--Djava.library.patheys.TRAINABLE_VARIABLES)
--Djava.library.path
--Djava.library.path
--Djava.library.path
--Djava.library.pathtensor/issues/6
--Djava.library.path
--Djava.library.path
--Djava.library.path
--Djava.library.path
--Djava.library.path
--Djava.library.pathocs/python/tf/clip_by_value
--Djava.library.path
--Djava.library.path
--Djava.library.path
--Djava.library.path*)`で現在のグラフのいろいろなものを取れる
--Djava.library.pathocs/python/tf/GraphKeys
--Djava.library.path
--Djava.library.path.` とすることでノードを逆に辿れる
--Djava.library.path
--Djava.library.path
--Djava.library.path_graph().as_graph_def().node]`で全node名を取得
--Djava.library.pathdのほうが早い
--Djava.library.pathult_graph().get_tensor_by_name(name)`で取り出す
--Djava.library.path
-
--Djava.library.path
-```
 ### kernel初期化 ###
 
 `tf.keras.initializers.{operation}`
@@ -379,6 +339,69 @@ with tf.Session() as sess:
 
 ### TFRecord ###
 
+#### 最終解 ####
+
+> https://stackoverflow.com/questions/45427637/numpy-to-tfrecords-is-there-a-more-simple-way-to-handle-batch-inputs-from-tfrec/45428167
+
+```python
+def npy_to_tfrecords(...):
+    # write records to a tfrecords file
+    writer = tf.python_io.TFRecordWriter(output_file)
+
+    # Loop through all the features you want to write
+    for ... :
+        # let say X is of np.array([[...][...]])
+        # let say y is of np.array[[0/1]]
+
+        # Feature contains a map of string to feature proto objects
+        feature = {}
+        feature['X'] = tf.train.Feature(float_list=tf.train.FloatList(value=X.flatten()))
+        feature['y'] = tf.train.Feature(int64_list=tf.train.Int64List(value=y))
+
+        # Construct the Example proto object
+        example = tf.train.Example(features=tf.train.Features(feature=feature))
+
+        # Serialize the example to a string
+        serialized = example.SerializeToString()
+
+        # write the serialized objec to the disk
+        writer.write(serialized)
+    writer.close()
+
+# Creates a dataset that reads all of the examples from filenames.
+filenames = ["file1.tfrecord", "file2.tfrecord", ..."fileN.tfrecord"]
+dataset = tf.contrib.data.TFRecordDataset(filenames)
+
+# for version 1.5 and above use tf.data.TFRecordDataset
+
+# example proto decode
+
+def _parse_function(example_proto):
+    keys_to_features = {'X':tf.FixedLenFeature((shape_of_npy_array), tf.float32),
+                        'y': tf.FixedLenFeature((), tf.int64, default_value=0)}
+    parsed_features = tf.parse_single_example(example_proto, keys_to_features)
+    return parsed_features['X'], parsed_features['y']
+
+# Parse the record into tensors.
+dataset = dataset.map(_parse_function)  
+
+# Shuffle the dataset
+dataset = dataset.shuffle(buffer_size=10000)
+
+# Repeat the input indefinitly
+dataset = dataset.repeat()  
+
+# Generate batches
+dataset = dataset.batch(batch_size)
+
+# Create a one-shot iterator
+iterator = dataset.make_one_shot_iterator()
+
+# Get batch X and y
+X, y = iterator.get_next()
+```
+
+#### memo ####
 やっぱり固めた段階でTensorにするしかない
 
 class TFRecordは入出力がTensorのみっぽいので注意
@@ -417,7 +440,7 @@ dataset.padded_batch(batch_size, padded_shapes=([800, 600, 3],[800, 600, 3],[800
 ```
 
 > https://stackoverflow.com/questions/45955241/how-do-i-create-padded-batches-in-tensorflow-for-tf-train-sequenceexample-data-u
-> 
+
 ### GPUのメモリ関連 ###
 
 session毎にメモリの最大値を制限する
