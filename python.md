@@ -441,6 +441,109 @@ dataset.padded_batch(batch_size, padded_shapes=([800, 600, 3],[800, 600, 3],[800
 
 > https://stackoverflow.com/questions/45955241/how-do-i-create-padded-batches-in-tensorflow-for-tf-train-sequenceexample-data-u
 
+
+#### 最終解 ####
+
+> https://stackoverflow.com/questions/45427637/numpy-to-tfrecords-is-there-a-more-simple-way-to-handle-batch-inputs-from-tfrec/45428167
+
+```python
+def npy_to_tfrecords(...):
+    # write records to a tfrecords file
+    writer = tf.python_io.TFRecordWriter(output_file)
+
+    # Loop through all the features you want to write
+    for ... :
+        # let say X is of np.array([[...][...]])
+        # let say y is of np.array[[0/1]]
+
+        # Feature contains a map of string to feature proto objects
+        feature = {}
+        feature['X'] = tf.train.Feature(float_list=tf.train.FloatList(value=X.flatten()))
+        feature['y'] = tf.train.Feature(int64_list=tf.train.Int64List(value=y))
+
+        # Construct the Example proto object
+        example = tf.train.Example(features=tf.train.Features(feature=feature))
+
+        # Serialize the example to a string
+        serialized = example.SerializeToString()
+
+        # write the serialized objec to the disk
+        writer.write(serialized)
+    writer.close()
+
+# Creates a dataset that reads all of the examples from filenames.
+filenames = ["file1.tfrecord", "file2.tfrecord", ..."fileN.tfrecord"]
+dataset = tf.contrib.data.TFRecordDataset(filenames)
+
+# for version 1.5 and above use tf.data.TFRecordDataset
+
+# example proto decode
+
+def _parse_function(example_proto):
+    keys_to_features = {'X':tf.FixedLenFeature((shape_of_npy_array), tf.float32),
+                        'y': tf.FixedLenFeature((), tf.int64, default_value=0)}
+    parsed_features = tf.parse_single_example(example_proto, keys_to_features)
+    return parsed_features['X'], parsed_features['y']
+
+# Parse the record into tensors.
+dataset = dataset.map(_parse_function)  
+
+# Shuffle the dataset
+dataset = dataset.shuffle(buffer_size=10000)
+
+# Repeat the input indefinitly
+dataset = dataset.repeat()  
+
+# Generate batches
+dataset = dataset.batch(batch_size)
+
+# Create a one-shot iterator
+iterator = dataset.make_one_shot_iterator()
+
+# Get batch X and y
+X, y = iterator.get_next()
+```
+
+#### memo ####
+やっぱり固めた段階でTensorにするしかない
+
+class TFRecordは入出力がTensorのみっぽいので注意
+mapを使ってparseするのは`Parsing tf.Example protocol buffer messages`、`Decoding image data and resizing it`に記載
+（最も、Tensorまで落とし込んで初めて**前処理ができた**なのだけど）
+> https://www.tensorflow.org/guide/datasets
+
+DataSetsのAPIはここ
+> https://www.tensorflow.org/api_docs/python/tf/data/TFRecordDataset#shuffle
+
+Imageのパースとreshapeはここ利用
+> http://warmspringwinds.github.io/tensorflow/tf-slim/2016/12/21/tfrecords-guide/
+
+
+ここたへんは低水準でわかりやすいかも
+> https://www.tensorflow.org/api_guides/python/reading_data#_QueueRunner_
+
+後半でバッチ処理について解説
+
+> https://qiita.com/YusukeSuzuki@github/items/1388534bc274bc64b9b2#%E5%8F%82%E8%80%83--%E8%87%AA%E5%89%8D%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E5%BD%A2%E5%BC%8F%E3%81%A8%E8%87%AA%E5%89%8D%E3%81%AE%E9%9D%9E%E5%90%8C%E6%9C%9F%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%81%AE%E3%82%B3%E3%83%BC%E3%83%89
+
+前処理関連
+> https://www.tensorflow.org/performance/datasets_performance
+
+一番わかり易い
+> https://qiita.com/antimon2/items/c7d2285d34728557e81d
+> https://www.cresco.co.jp/blog/entry/3024/
+
+#### padded_batch ####
+
+padded_shapeはtupleにする
+datasetを返すので注意
+```python
+
+dataset.padded_batch(batch_size, padded_shapes=([800, 600, 3],[800, 600, 3],[800, 600, 4]))
+```
+
+> https://stackoverflow.com/questions/45955241/how-do-i-create-padded-batches-in-tensorflow-for-tf-train-sequenceexample-data-u
+
 ### GPUのメモリ関連 ###
 
 session毎にメモリの最大値を制限する
