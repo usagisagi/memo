@@ -1,0 +1,7 @@
+C:\Users\h-ito\Desktop\nplant-master\bin\Debug\NPlant.Samples.dll
+C:\Users\h-ito\Desktop\nplant-master\bin\Debug\NPlant.Samples.pdb
+C:\Users\h-ito\Desktop\nplant-master\Src\NPlant.Samples\obj\Debug\NPlant.Samples.csprojResolveAssemblyReference.cache
+C:\Users\h-ito\Desktop\nplant-master\Src\NPlant.Samples\obj\Debug\NPlant.Samples.csproj.CoreCompileInputs.cache
+C:\Users\h-ito\Desktop\nplant-master\Src\NPlant.Samples\obj\Debug\NPlant.Samples.csproj.CopyComplete
+C:\Users\h-ito\Desktop\nplant-master\Src\NPlant.Samples\obj\Debug\NPlant.Samples.dll
+C:\Users\h-ito\Desktop\nplant-master\Src\NPlant.Samples\obj\Debug\NPlant.Samples.pdb
