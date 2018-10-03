@@ -610,3 +610,16 @@ HandBook/Tutorialに色々ある
 ## Pandas From MySQL ##
 
 > https://qiita.com/takahashi_yukou/items/10f1510c7b433e114e70
+
+
+## fasttext関連 ##
+
+本家からgit cloneしてpipでinstallすればよい
+> https://github.com/facebookresearch/fastText/tree/master/python
+
+## wxPython ##
+
+### 本家 ###
+
+> https://wxpython.org/Phoenix/docs/html/index.html
+
