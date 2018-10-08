@@ -61,18 +61,7 @@ sudo python bin\solaar pair
 
         `xbindskeys`はボタンの割当を行うソフト。コマンドを割り当てることができる。`xautomation`はキーの送信をエミュレートするソフト。`xbindskey`でこのソフトのコマンドを叩くことでエミュレートする。
 
-        homeに`.xbindkeys`ファイルを作成し、1行目`コマンド`、2行目`b:{割当たいボタン番号}`のように記述する。`xautomation`の`xte`コマンドは`xbindkeys -k`で確認できる。
-
-        ```sh
-        # 親指チルト上方向で ctrl + pageup
-        # xautomationを利用
-        "xte `Control+Mod2 + Prior`"
-            b:6
-
-        # 親指チルト上方向で ctrl + pagedown
-        "xte `Control+Mod2 + Next`"
-            b:7
-        ```
+        homeに`.xbindkeys`ファイルを作成し、1行目`コマンド`、2行目`b:{割当たいボタン番号}`のように記述する。`xautomation`の`xte`コマンドは`xbindkeys -k`で確認でき<s>る</s>ない。
 
         > https://wiki.archlinux.jp/index.php/Logitech_MX_Master
         > https://wiki.archlinux.jp/index.php/Xbindkeys
