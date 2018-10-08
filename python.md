@@ -623,3 +623,38 @@ HandBook/Tutorialに色々ある
 
 > https://wxpython.org/Phoenix/docs/html/index.html
 
+## 並列化 ##
+
+### map処理 ###
+
+```python
+from multiprocessing import Pool
+import multiprocessing
+
+with Pool(multiprocessing.cpu_count()) as pool:
+    pool.map(double, data)
+```
+
+> http://blog.amedama.jp/entry/2017/10/31/220105
+
+## ipython ##
+
+### リセット ###
+
+```python
+# 全消し
+%reset -f
+
+```
+
+### markdown ##
+```python
+%%markdown
+ここに記述する
+```
+
+## ipython shell to ipynb ##
+
+```python
+%notebook {file_name}
+```
