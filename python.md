@@ -658,3 +658,14 @@ with Pool(multiprocessing.cpu_count()) as pool:
 ```python
 %notebook {file_name}
 ```
+
+## seaborn ##
+
+### color palette ###
+
+hexに変換後、cmapに指定すればいい
+ 
+```python
+my_cmap = ListedColormap(sns.color_palette(flatui).as_hex())
+
+```
