@@ -45,3 +45,21 @@ namespace Chap16 {
 }
 
 ```
+
+### マウスをクリックする ###
+
+```C#
+private class MouseSimulate {
+    private const UInt32 MOUSEEVENTF_LEFTDOWN = 0x0002;
+    private const UInt32 MOUSEEVENTF_LEFTUP = 0x0004;
+
+    [DllImport("USER32.dll", CallingConvention = CallingConvention.StdCall)]
+    private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, uint dwExtraInf);
+
+    public static void SimulateLeftClick(int x, int y) {
+        Cursor.Position = new System.Drawing.Point(x, y);
+        mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+    }
+}
+```
