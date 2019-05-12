@@ -68,4 +68,4 @@ private class MouseSimulate {
 
 テスト**対象**プロジェクトの`AssemblyInfo.cs`に`[assembly: InternalVisibleTo("XXXX")]`を追加。
 
-**XXXXはプロジェクト名**
+**XXXXはテストプロジェクトのアセンブリ名**
