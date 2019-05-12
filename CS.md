@@ -66,5 +66,6 @@ private class MouseSimulate {
 
 ### Internal属性のテストを行う ###
 
-テスト**対象**プロジェクトの`AssemblyInfo.cs`に`[assembly: InternalVisibleTo("XXXX")]`を追加。\n
+テスト**対象**プロジェクトの`AssemblyInfo.cs`に`[assembly: InternalVisibleTo("XXXX")]`を追加。
+
 **XXXXはプロジェクト名**
