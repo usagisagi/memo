@@ -69,3 +69,11 @@ private class MouseSimulate {
 テスト**対象**プロジェクトの`AssemblyInfo.cs`に`[assembly: InternalVisibleTo("XXXX")]`を追加。
 
 **XXXXはテストプロジェクトのアセンブリ名**
+
+## Sprache ##
+
+### XOR ###
+
+`first.Xor(Second)`
+firstで1文字でもtrueと評価のち、falseになったらsecondにかかわらずfalse
+firstで最初の文字だけ異なる場合secondを評価する
