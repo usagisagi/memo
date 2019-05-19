@@ -79,3 +79,19 @@ private class MouseSimulate {
 firstで1文字でもtrueと評価のち、falseになったらsecondにかかわらずfalse
 
 firstで最初の文字だけ異なる場合secondを評価する
+
+### ChainOperator ###
+
+```cs
+public static Parser<T> ChainOperator<T, TOp>(Parser<TOp> op, Parser<T> operand, Func<TOp, T, T, T> apply);
+```
+
+1. 以下のParserでParse
+```cs
+from leftOperand in operand
+from operator in op
+from rightOperand in operand
+select apply(operator, leftOperand, rightOperand)
+```
+
+1. Parseできなかったら`operand`でParse
