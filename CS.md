@@ -75,5 +75,7 @@ private class MouseSimulate {
 ### XOR ###
 
 `first.Xor(Second)`
+
 firstで1文字でもtrueと評価のち、falseになったらsecondにかかわらずfalse
+
 firstで最初の文字だけ異なる場合secondを評価する
