@@ -537,4 +537,8 @@ withFile[A](filename: String)(f: scala.io.Source => A)A
 > https://qiita.com/opengl-8080/items/64152ee9965441f7667b
 
 
+## chunk ごとに iteratorを取得 ##
 
+```scala
+Iterator.continually(bufferedReader.readLine).takeWhile(_ != null).grouped(chunk)
+```
