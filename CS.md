@@ -95,3 +95,56 @@ select apply(operator, leftOperand, rightOperand)
 ```
 
 1. Parseできなかったら`operand`でParse
+
+## DataBase周り ##
+
+### bulkInsert ###
+
+DataTable作る => カラム名の列を作る => BulkInsertインスタンスを作る => 投入
+
+```CS
+using System;
+using System.Data;
+using System.Data.SqlClient;
+namespace Sample {
+    
+    public class MainProcess {
+        
+        [STAThread]
+        public static void Main(string[] args) {
+            
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            
+            var m = new MainProcess();
+            m.StartProcess();
+            
+            sw.Stop();
+            Console.WriteLine(sw.Elapsed);
+        }
+        
+        private void StartProcess() {
+            
+            string connectionString = "Data Source=192.168.1.5\\SQLEXPRESS;Initial Catalog=sample;User ID=sa;Password=P@ssw0rd";
+            
+            Console.WriteLine("Start");
+            
+            DataTable table = new DataTable("Table_1");
+            table.Columns.Add(new DataColumn("id", typeof(int))); 
+            table.Columns.Add(new DataColumn("name", typeof(string)));
+            for(int i = 1; i <= 10000; i++) {
+                table.Rows.Add(i, "テストデータ");
+            }
+            using(SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString)) {
+                bulkCopy.BulkCopyTimeout = 600; // in seconds
+                bulkCopy.DestinationTableName = "Table_1";
+                bulkCopy.WriteToServer(table);
+            }
+            
+            Console.WriteLine("End");
+        }
+    }
+}
+```
+
+> https://symfoware.blog.fc2.com/blog-entry-1186.html
