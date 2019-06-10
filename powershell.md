@@ -49,7 +49,8 @@ $ pandoc --print-default-data-file reference.docx > reference.docx
 本文の内容は無視されるので、消す必要はありません。
 
 #### docx ファイルの作成 ####
-作成したテンプレートを使って、新しい docx ファイルを作成します。
+
+作成したテンプレートを使って、新しい docx ファイルを作成します。**なんか知らないけどVS-CODEの拡張機能はバグるのでダメ**
 
 ```sh
 $ pandoc new.md --reference-docx=reference.docx -s -o new.docx
