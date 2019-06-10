@@ -33,6 +33,11 @@ $ pandoc --print-default-data-file reference.docx > reference.docx
 ```
 
 作成された reference.docx ファイルを Word で開いて、スタイルを編集します。
+使用できるスタイルは以下の通り：
+
+【段落】 標準(Normal), Compact, 表題(Title), Authors, 日付(Date), Heading 1, Heading 2, Heading 3, Heading 4, Heading 5, Block Quote, Definition Term, Definition, 本文(Body Text), Table Caption, Image Caption; 
+
+【文字】 Default Paragraph Font, Body Text Char, Verbatim Char, Footnote Ref, Link.
 
 - Heading 1〜6 や 本文 など、使われるスタイル。
 - ヘッダーやフッター
