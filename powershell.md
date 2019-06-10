@@ -21,3 +21,30 @@ Get-Content -Path ".\Source.txt" -Encoding Default `
 ```ps
 nkf --overwrite --oc=UTF-8 ExportFullText.txt 
 ```
+## pandoc ##
+
+### テンプレートの編集 ###
+
+#### 準備 ####
+まずはテンプレートの docx ファイルを作成します。
+
+```sh
+$ pandoc --print-default-data-file reference.docx > reference.docx
+```
+
+作成された reference.docx ファイルを Word で開いて、スタイルを編集します。
+
+- Heading 1〜6 や 本文 など、使われるスタイル。
+- ヘッダーやフッター
+本文の内容は無視されるので、消す必要はありません。
+
+#### docx ファイルの作成 ####
+作成したテンプレートを使って、新しい docx ファイルを作成します。
+
+```sh
+$ pandoc new.md --reference-docx=reference.docx -s -o new.docx
+```
+
+作成された new.docx のレイアウトが reference.docx で指定したものになっていれば OK です。
+
+> http://www.minimalab.com/blog/2016/08/16/convert-md-to-docx/
