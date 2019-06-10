@@ -48,3 +48,4 @@ $ pandoc new.md --reference-docx=reference.docx -s -o new.docx
 作成された new.docx のレイアウトが reference.docx で指定したものになっていれば OK です。
 
 > http://www.minimalab.com/blog/2016/08/16/convert-md-to-docx/
+> https://qiita.com/sky_y/items/5fd5c9568ea550b1d7af
