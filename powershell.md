@@ -26,7 +26,10 @@ nkf --overwrite --oc=UTF-8 ExportFullText.txt
 ### テンプレートの編集 ###
 
 #### 準備 ####
+
 まずはテンプレートの docx ファイルを作成します。
+
+**cmdで実行すること！パワーシェルだと破損する！**
 
 ```sh
 $ pandoc --print-default-data-file reference.docx > reference.docx
