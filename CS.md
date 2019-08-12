@@ -148,3 +148,19 @@ namespace Sample {
 ```
 
 > https://symfoware.blog.fc2.com/blog-entry-1186.html
+
+## C#コレクション計算量一覧 ##
+
+||データ構造|追加|取得|検索|ソート|列挙|削除|集合演算|
+|:--|:--|:--|:--|:--|:--|:--|:--|:--|
+|List\<T\>|配列|O(1)|O(1)|O(n)|O(nlogn)|O(1)|O(n)|-|
+|LinkedList\<T\>|連結リスト|O(1)|O(n)|O(n)|-|O(1)|O(n)（要素指定）<br>O(1)（ノード指定）|-|
+|Queue\<T\>|循環配列|O(1)（enQ）|O(1)（peek, deQ）|O(n)|-|-|O(1)（deQ）|-|
+|Stack\<T\>|配列|O(1)（push）|O(1)（peek, pop）|O(n)|-|-|O(1)（pop）|-|
+|Dictionary\<TKey, TValue\>|ハッシュテーブル|O(1)|O(1)|O(1)|-|-|O(1)|-|
+|HashSet\<T\>|ハッシュテーブル|O(1)|-|O(1)|-|O(1)|O(1)|O(n+m)|
+|SortedDictionary\<TKey, TValue\>|二部探索木|O(nlogn)|O(logn)|O(logn)|-|O(logn)|O(logn)|-|
+|SortedList\<TKey, TValue\>|配列|O(n)|O(logn)|O(logn)（key）<br>O(logn)（index）|-|O(1)|O(n)|-|
+|SortedSet\<T\>|二部探索木|O(logn)||O(logn)|-|O(logn)|O(logn)|O(n+m)|
+
+> https://qiita.com/takutoy/items/37e81b916271bf43b527#sortedsett
