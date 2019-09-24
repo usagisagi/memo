@@ -21,3 +21,7 @@ SELECT gs.last_user_seek AS [最後にシークした時間],
 包含列を含まれている列として設定し、非クラスター化インデックスとして作成。
 
 > http://ryuchan.hatenablog.com/entry/2013/09/23/134554
+
+包含列（付加列インデックス）について。終着ノード（リーフノード）にくっついているデータのこと。
+
+> https://qiita.com/KimiguS/items/0519005915d658081131
