@@ -542,3 +542,10 @@ withFile[A](filename: String)(f: scala.io.Source => A)A
 ```scala
 Iterator.continually(bufferedReader.readLine).takeWhile(_ != null).grouped(chunk)
 ```
+
+## 複数プロジェクトの管理 ##
+
+sbtに書くと自動で作ってくれるぞ
+
+> https://qiita.com/prokosna/items/0728b73561955e631937
+
