@@ -41,3 +41,8 @@ Array(10, {2}})
 ```
 
 > https://qiita.com/yasukotelin/items/1750b8f17b2c17233cd9
+
+## マルチプロジェクト ##
+
+intelliJでの設定はこれ
+> https://qiita.com/kechizenya/items/a7a9e4987304c377d77c
