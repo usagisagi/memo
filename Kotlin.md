@@ -46,3 +46,6 @@ Array(10, {2}})
 
 intelliJでの設定はこれ
 > https://qiita.com/kechizenya/items/a7a9e4987304c377d77c
+
+既存モジュールの追加はincludeを`settings.gradle`に入れるだけで良い
+`The DefaultSourceDirectorySet constructor has been deprecated.`は気にする必要は無い
