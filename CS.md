@@ -169,3 +169,9 @@ namespace Sample {
 
 > https://qiita.com/skitoy4321/items/742d143b069569014769
 
+## EntityFrameworkでエラーを吐いたとき ##
+
+`EntityFramework.SqlServer.dll`がなぜか出力ファイルにコピーされていない。
+コピーする。
+
+
