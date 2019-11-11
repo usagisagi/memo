@@ -169,13 +169,35 @@ namespace Sample {
 
 > https://qiita.com/skitoy4321/items/742d143b069569014769
 
-## EntityFrameworkでエラーを吐いたとき ##
+## EntityFramework v6.x ##
+
+## Migrationのやり方 ##
+
+1. `SQL Server オブジェクト エクスプローラ`でデータベース作成
+1. 新しい項目を追加 
+1. `ADO.NET Entity Data Model`
+1. データベースからCode First
+1. 新しい接続 -> データソースを`Microsoft SQL Server` -> サーバ名を`(localdb)\MSSQLLocalDB`
+1. 作成したデータベースを選択
+1. データベース定義を書く
+1. 以下のコマンドを打つ
+```
+EntityFramework\Enable-Migrations
+EntityFramework\add-migration ${名前}
+EntityFramework\Upgrade-Database
+```
+
+
+
+### EntityFrameworkでエラーを吐いたとき ###
 
 `EntityFramework.SqlServer.dll`がなぜか出力ファイルにコピーされていない。
 コピーする。
 
 
-## 接続文字列が見つからない ## 
+### 接続文字列が見つからない ###
 
 VS2017 Update-Databaseで XXX という名前の接続文字列がアプリケーション構成ファイルに見つかりませんでした。と言われたら
 該当プロジェクトをスタートアッププロジェクトにしたら解決。
+
+
