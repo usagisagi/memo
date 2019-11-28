@@ -25,3 +25,55 @@ SELECT gs.last_user_seek AS [最後にシークした時間],
 包含列（付加列インデックス）について。終着ノード（リーフノード）にくっついているデータのこと。
 
 > https://qiita.com/KimiguS/items/0519005915d658081131
+
+## 全インデックスの再構成 ##
+
+```tsql
+DECLARE @TableName sysname, @IndexName sysname
+DECLARE @basesql nvarchar(max), @sql nvarchar(max)
+DECLARE @Edition nvarchar(max)
+
+SET @Edition = CONVERT(nvarchar, SERVERPROPERTY('Edition'))
+
+SET @basesql = 'ALTER INDEX @1 On @2 REBUILD @3'
+
+IF PATINDEX('%Enterprise%', @Edition) > 0
+BEGIN
+    SET @basesql = REPLACE(@basesql, '@3', 'WITH (ONLINE=ON)')
+END
+ELSE
+    SET @basesql = REPLACE(@basesql, '@3', '')
+
+DECLARE IXC CURSOR FOR
+SELECT
+    OBJECT_NAME(object_id) AS TableName
+    , name AS IndexName
+FROM
+    sys.indexes
+WHERE
+    OBJECT_SCHEMA_NAME (object_id) <> 'sys'
+    AND
+    index_id > 0
+ORDER BY 1
+
+OPEN IXC
+
+FETCH NEXT FROM IXC
+INTO @TableName, @IndexName
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    PRINT @TableName + ':' + @IndexName
+
+    SET @sql = REPLACE(@basesql, '@1', @IndexName)
+    SET @sql = REPLACE(@sql, '@2', @TableName)
+   
+    EXECUTE (@sql)
+
+    FETCH NEXT FROM IXC
+    INTO @TableName, @IndexName   
+END
+
+CLOSE IXC
+DEALLOCATE IXC
+```
