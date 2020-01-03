@@ -54,3 +54,22 @@ intelliJでの設定はこれ
 
 既存モジュールの追加はincludeを`settings.gradle`に入れるだけで良い
 `The DefaultSourceDirectorySet constructor has been deprecated.`は気にする必要は無い
+
+## Json ##
+
+https://github.com/google/gson/blob/master/UserGuide.md#TOC-Gson-With-Gradle
+
+```kt
+import com.google.gson.Gson
+
+fun main(args: Array<String>) {
+    val p = Parent(Child(1,100),20)
+    val gson = Gson()
+
+    println(gson.toJson(p))
+}
+
+data class Parent(val child: Child, val id: Int)
+data class Child(val value: Int, private val value2: Int)
+//{"child":{"value":1,"value2":100},"id":20}
+```
