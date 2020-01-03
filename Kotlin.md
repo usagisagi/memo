@@ -2,8 +2,13 @@
 
 ## IntelliJにGrandleインストール, Jar生成まで #
 
+**デフォルトのimplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" を compileにすること！！！**
+
 > http://biacco42.hatenablog.com/entry/2017/05/24/202849
 
+### ビルドはこっちがわかりやすい　###
+
+> https://qiita.com/shinyay/items/1a000cd082bf2d670531
 
 ## Grandle Projectを自動生成して Rest APIを作って見たもの ##
 
