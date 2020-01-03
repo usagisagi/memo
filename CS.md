@@ -200,4 +200,32 @@ EntityFramework\Upgrade-Database
 VS2017 Update-Databaseで XXX という名前の接続文字列がアプリケーション構成ファイルに見つかりませんでした。と言われたら
 該当プロジェクトをスタートアッププロジェクトにしたら解決。
 
+### 標準入出力 ###
+
+```cs
+var pInfo = new ProcessStartInfo {
+    FileName = treeTaggerPath.FullName,
+    Arguments = $"\"{parPath.FullName}\" {opts}",
+    CreateNoWindow = true,
+    UseShellExecute = false,
+    RedirectStandardOutput = true,
+    RedirectStandardInput = true,
+    RedirectStandardError = true
+};
+
+using (var process = Process.Start(pInfo)) {
+    using (var writer = process.StandardInput) {
+        process.ErrorDataReceived += Process_ErrorDataReceived;
+        writer.AutoFlush = true;
+        writer.Write(string.Join("\n", words)); // 多分これが最速
+    }
+    var results = process.StandardOutput.ReadToEnd();
+    process.WaitForExit();
+
+    return results
+        .Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+        .Select(s => s.Split('\t')[2])
+        .Select(s => s.Split('|').First());
+}
+```
 
