@@ -11,7 +11,7 @@ jar {
     }
 
     from {
-        from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 ```
