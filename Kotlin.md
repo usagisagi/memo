@@ -2,11 +2,20 @@
 
 ## IntelliJにGrandleインストール, Jar生成まで #
 
-**デフォルトのimplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8" を compileにすること！！！**
+### fatJar ###
 
-> http://biacco42.hatenablog.com/entry/2017/05/24/202849
+```kt
+jar {
+    manifest {
+        attributes 'Main-Class': 'MainKt'
+    }
 
-### ビルドはこっちがわかりやすい　###
+    from {
+        from configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+```
+> https://qiita.com/MirrgieRiana/items/d3271f6979c1451207a6
 
 > https://qiita.com/shinyay/items/1a000cd082bf2d670531
 
