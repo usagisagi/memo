@@ -229,3 +229,24 @@ using (var process = Process.Start(pInfo)) {
 }
 ```
 
+## 入れ子の型 ##
+
+コンストラクタで外側の型を渡すことで、外側の型のprivate memberにアクセスできる。
+
+
+```cs
+class Outer {
+    int value = 100;
+    class Inner {
+        Outer outer;
+
+        public Inner(Outer outer) {
+            this.outer = outer;
+        }
+
+        public void run() {
+            this.outer.value = 100;
+        }
+    }
+}
+```
