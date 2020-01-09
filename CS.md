@@ -228,6 +228,46 @@ using (var process = Process.Start(pInfo)) {
         .Select(s => s.Split('|').First());
 }
 ```
+### Javaの時 ###
+
+環境変数でJAVA_HOMEをつけることが必要
+
+```cs
+static readonly string jarName = "jar.jar";
+static readonly string javaHome = Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.Machine);
+
+List<SrcToDstPaths> pathsList = new List<SrcToDstPaths>();
+
+
+public void Run() {
+    var writing = 
+        string.Join("\n", pathsList.Select(p => p.ToString()).ToArray());
+    var jarPath = Path.Combine(Directory.GetCurrentDirectory(), jarName);
+
+    var pInfo = new ProcessStartInfo {
+        FileName = Path.Combine(javaHome, "bin", "java.exe"),
+        Arguments = $"-jar {jarPath}",
+        CreateNoWindow = true,
+        UseShellExecute = false,
+        RedirectStandardOutput = true,
+        RedirectStandardInput = true,
+        RedirectStandardError = true
+    };
+
+    using (var process = Process.Start(pInfo)) {
+        using (var writer = process.StandardInput) {
+            writer.AutoFlush = true;
+            writer.WriteLine(""); // 多分これが最速
+        }
+
+        var results = process.StandardOutput.ReadToEnd();
+
+        process.WaitForExit();
+    }
+}
+
+```
+
 
 ## 入れ子の型 ##
 
