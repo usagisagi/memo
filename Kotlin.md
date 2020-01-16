@@ -157,3 +157,37 @@ copy {
 いわゆるyield
 
 > https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/index.html
+
+## SpringJDBC ##
+
+こういうのでいいんだよこういうので
+
+依存
+```gradle
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.2.2.RELEASE'
+```
+
+本文
+```kt
+@Test
+fun testJdbc() {
+    val ds = DriverManagerDataSource("接続文字列", "ユーザ名", "パスワード")
+    ds.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver")
+
+    val obj = JdbcTemplate(ds)
+    obj.query("SELECT * FROM PDF_splited", TestMapper())
+}
+
+class TestMapper : RowMapper<IdCls> {
+    override fun mapRow(rs: ResultSet, rowNum: Int): IdCls? {
+        println(rs.getInt("ID"))
+        return null
+    }
+}
+
+class IdCls {
+    // dummy
+}
+```
+
