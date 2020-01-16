@@ -124,3 +124,16 @@ data class Parent(val child: Child, val id: Int)
 data class Child(val value: Int, private val value2: Int)
 //{"child":{"value":1,"value2":100},"id":20}
 ```
+
+## OpenCv周り ##
+
+.soはwinだと.dll
+System.loadは下の
+> https://doitu.info/blog/5c824fd48dbc7a001af33ced
+
+System.loadは下のように絶対パスにする
+
+```kt
+System.load(Paths.get("lib/opencv_java420.dll").toAbsolutePath().toString())
+```
+
