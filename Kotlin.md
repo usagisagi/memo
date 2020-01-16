@@ -151,3 +151,9 @@ copy {
 ## IO周り ##
 
 > https://qiita.com/rubytomato@github/items/6880eab7d9c76524d112
+
+## 遅延評価 ##
+
+いわゆるyield
+
+> https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence-scope/index.html
