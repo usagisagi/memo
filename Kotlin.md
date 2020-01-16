@@ -139,7 +139,7 @@ System.load(Paths.get("lib/opencv_java420.dll").toAbsolutePath().toString())
 
 ## ビルド先にファイルをコピー ##
 
-こんな感じにする
+jarタスクでこんな感じにする
 
 ```gradle
 copy {
