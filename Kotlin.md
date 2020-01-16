@@ -137,3 +137,13 @@ System.loadは下のように絶対パスにする
 System.load(Paths.get("lib/opencv_java420.dll").toAbsolutePath().toString())
 ```
 
+## ビルド先にファイルをコピー ##
+
+こんな感じにする
+
+```gradle
+copy {
+    from 'lib/opencv_java420.dll'
+    into 'build/libs/lib'
+}
+```
