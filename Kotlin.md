@@ -147,3 +147,7 @@ copy {
     into 'build/libs/lib'
 }
 ```
+
+## IO周り ##
+
+> https://qiita.com/rubytomato@github/items/6880eab7d9c76524d112
