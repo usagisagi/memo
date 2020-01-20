@@ -150,6 +150,7 @@ copy {
 
 ## IO周り ##
 
+> https://qiita.com/anqooqie/items/0ac128f52e2e5153f727
 > https://qiita.com/rubytomato@github/items/6880eab7d9c76524d112
 
 ## 遅延評価 ##
