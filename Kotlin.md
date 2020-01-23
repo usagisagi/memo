@@ -106,6 +106,10 @@ intelliJでの設定はこれ
 既存モジュールの追加はincludeを`settings.gradle`に入れるだけで良い
 `The DefaultSourceDirectorySet constructor has been deprecated.`は気にする必要は無い
 
+### モジュール分割 ###
+
+> https://qiita.com/hrkt/items/f3ed263c10e7a754a12b
+
 ## Json ##
 
 https://github.com/google/gson/blob/master/UserGuide.md#TOC-Gson-With-Gradle
