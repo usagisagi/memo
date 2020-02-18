@@ -60,3 +60,9 @@ $ pandoc new.md --reference-docx=reference.docx -s -o new.docx
 
 > http://www.minimalab.com/blog/2016/08/16/convert-md-to-docx/
 > https://qiita.com/sky_y/items/5fd5c9568ea550b1d7af
+
+## 正規表現でファイルを検索して移動 ##
+
+```
+Get-ChildItem -Recurse -File | where {$_ -match ".*GS.*" } | Move-Item -Destination .\GS
+```
