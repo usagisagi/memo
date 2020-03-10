@@ -72,6 +72,8 @@ private class MouseSimulate {
 
 `AssemblyInfo.cs`を手動で作成する。
 
+> https://www.nuits.jp/entry/net-standard-internals-visible-to
+
 **XXXXはテストプロジェクトのアセンブリ名**
 
 ## Sprache ##
